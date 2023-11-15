@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using PagedList.Core;
 using ShoeStore.Models;
 
 namespace ShoeStore.Areas.Admin.Controllers
@@ -20,10 +21,14 @@ namespace ShoeStore.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminProducts
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int? page)
         {
-            var shoeStoreContext = _context.Products.Include(p => p.Cartegoty);
-            return View(await shoeStoreContext.ToListAsync());
+            var pageNumber = page == null || page <= 0 ? 1 : page.Value;
+            var pageSize = 15;
+            var IsProduct = _context.Products.Include(x => x.Cartegoty).AsNoTracking().OrderByDescending(x => x.ProductId);
+            PagedList<Product> models = new PagedList<Product>(IsProduct, pageNumber, pageSize);
+            ViewBag.CurrentPage = pageNumber;
+            return View(models);
         }
 
         // GET: Admin/AdminProducts/Details/5

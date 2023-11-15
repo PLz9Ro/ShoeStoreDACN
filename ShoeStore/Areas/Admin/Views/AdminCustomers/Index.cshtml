@@ -6,26 +6,32 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Index</h1>
-<div class="container"  >
-    <p>
-        <a asp-action="Create">Create New</a>
+
+<div class="container-fluid">
+    <h2 class="mt-4 text-center fw-bold">
+        <p class="">
+            QUẢN LÝ KHÁCH HÀNG      
+        </p>
+    </h2>
+    <p class="btn btn-success ">
+        <a class="text-white text-decoration-none" asp-action="Create">Create New</a>
     </p>
     <table class="table">
-        <span>
-            Danh Sach Khach Hang : Page @CurrentPage;
+        <span class="d-flex justify-content-end mr-5 pb-2">
+            Page: @CurrentPage
         </span>
         <thead>
             <tr>
+                <th>
+                    ID
+                </th>
                 <th>
                     Họ Và Tên
                 </th>
                 <th>
                     Ngày Sinh
                 </th>
-                <th>
-                    Địa Chỉ
-                </th>
+               
                 <th>
                     Email
                 </th>
@@ -33,46 +39,51 @@
                     Số Điện Thoại
                 </th>
                 <th>
-
+                    Địa Chỉ
                 </th>
+
 
                 <th></th>
             </tr>
         </thead>
+     
         <tbody>
             @foreach (var item in Model)
             {
                 <tr>
                     <td>
+                        @item.CustomerId
+                    </td>
+                    <td>
                         @item.FullName
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Birthday)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Avatar)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Address)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Phone)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LocationId)
+                        @String.Format("{0:MM/dd/yyyy}", item.Birthday)
                     </td>
 
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.CustomerId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>
+                        @item.Email
+                    </td>
+                    <td>
+                        @item.Phone
+                    </td>
+                    <td>
+                       @item.Address
+                    </td>
+
+                    <td>
+                        <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a> |
+                        <a class="btn btn-light" asp-action="Details" asp-route-id="@item.CustomerId">Details</a> |
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+    <div aria-label="Page navigation">
+        <ul class="pagination"> 
+            <pager class="paper-container" list="@Model" asp-area="Admin" asp-controller="AdminCustomers" asp-action="Index"></pager>
+        </ul>
+    </div>
 
 </div>

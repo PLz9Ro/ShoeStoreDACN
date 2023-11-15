@@ -24,8 +24,8 @@ namespace ShoeStore.Areas.Admin.Controllers
             public IActionResult Index(int? page)
         {
             var pageNumber = page == null || page <= 0 ? 1 : page.Value;
-            var pageSize = 10;
-            var IsCustomers = _context.Customers.AsNoTracking().OrderByDescending(x => x.CustomerId);
+            var pageSize = 15;
+            var IsCustomers = _context.Customers.Include(x=> x.Location).AsNoTracking().OrderByDescending(x => x.CustomerId);
             PagedList<Customer> models = new PagedList<Customer>(IsCustomers, pageNumber, pageSize);
             ViewBag.CurrentPage = pageNumber;
             return View(models);
