@@ -1,0 +1,79 @@
+﻿@model IEnumerable<ShoeStore.Models.User>
+
+@{
+    ViewData["Title"] = "Danh Sach Nguoi Dung";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+<div class="container-fluid">
+    <h3 class="m-5 text-center fw-bold"> 
+        <p class="text-dark">
+            QUẢN LÝ TÀI KHOẢN
+        </p> 
+    </h3>
+    <p class="btn btn-success ">
+        <a class="text-white text-decoration-none" asp-action="Create">Create New</a>
+    </p>
+
+    <table class="table">
+        <div class="d-flex justify-content-start ">
+            <div class="m-b-10 m-r-15 mb-2 mr-3 ">
+                <select class="custome-select outline-none" id="idrole" name="idrole" style="min-width:200px ; height: 30px ; outline:none" asp-items="ViewBag.QuyenTruyCap">
+                    <option value="0" disabled selected>Chon Quyen Truy Cap</option>
+                </select>
+            </div>
+            <div class="m-b-10">
+                <select class="custome-select outline-none" id="idstatus" name="idstatus" style="min-width:200px ; height: 30px ; outline:none" asp-items="ViewBag.lsTrangThai">
+                    <option value="" disabled selected>Trang Thai</option>
+                </select>
+            </div>
+        </div>
+        
+       
+        <thead>
+            <tr>
+                <th>
+                   ID
+                </th>
+                <th>
+                  Họ và Tên
+                </th>
+                <th>
+                   Số Điện Thoại
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Role
+                </th>
+                <th>
+                    Active
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td> @item.Id</td>
+                <td> @item.FullName</td>
+                <td> @item.Phone</td>
+                <td> @item.Email</td>
+                <td> @item.RoleId</td>
+                <td> @item.Active</td>
+                <td>
+                    <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a class="btn btn-light" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+                    <th></th>
+             </tr>
+            }
+        </tbody>
+    </table>
+</div>

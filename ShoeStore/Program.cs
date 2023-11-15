@@ -1,8 +1,10 @@
+using AspNetCoreHero.ToastNotification;
 using Microsoft.EntityFrameworkCore;
 using ShoeStore.Models;
 using System.Configuration;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
+using AspNetCoreHero.ToastNotification.Notyf;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,12 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 builder.Services.AddSingleton<HtmlEncoder>(HtmlEncoder.Create(allowedRanges:new [] {UnicodeRanges.All }));
 
+builder.Services.AddNotyf(config =>
+{
+    config.DurationInSeconds = 10;
+    config.IsDismissable = true;
+    config.Position = NotyfPosition.TopRight;
+});
 
 var app = builder.Build();
 

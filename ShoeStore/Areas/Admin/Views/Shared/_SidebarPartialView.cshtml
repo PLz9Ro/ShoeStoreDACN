@@ -41,11 +41,25 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Quản Lý Hệ Thống:</h6>
                 <a class="collapse-item" asp-area="Admin" asp-controller="AdminRoles" asp-action="Index">Quản Lý Quyền Truy Cập</a>
-                <a class="collapse-item" href="cards.html">Cards</a>
+                <a class="collapse-item" asp-area="Admin" asp-controller="AdminUsers" asp-action="Index">Quản Lý Quản Trị</a>
+                <a class="collapse-item" asp-area="Admin" asp-controller="AdminCustomers" asp-action="Index">Quản Lý Khách Hàng</a>
             </div>
         </div>
     </li>
-
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThere"
+           aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Quan Ly He Thong</span>
+        </a>
+        <div id="collapseThere" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Quản Lý Hệ Thống:</h6>
+                <a class="collapse-item" asp-area="Admin" asp-controller="AdminRoles" asp-action="Index">Quản Lý Quyền Truy Cập</a>
+                <a class="collapse-item" asp-area="Admin" asp-controller="AdminUsers" asp-action="Index">Quản Lý Tài Khoản</a>
+            </div>
+        </div>
+    </li>
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"

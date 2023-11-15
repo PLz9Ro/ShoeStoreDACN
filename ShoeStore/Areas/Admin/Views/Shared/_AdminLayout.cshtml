@@ -27,6 +27,7 @@
         <!-- Sidebar -->
         @await Html.PartialAsync("_SidebarPartialView.cshtml")
         <!-- End of Sidebar -->
+  
         @RenderBody();
         <!-- Content Wrapper -->
         <!-- End of Content Wrapper -->
@@ -75,5 +76,6 @@
     <!-- Page level custom scripts -->
     <script src="~/assets/js/demo/chart-area-demo.js"></script>
     <script src="~/assets/js/demo/chart-pie-demo.js"></script>
-
+@*     @await Component.InvokeAsync("Notyf");
+    @await RenderSectionAsync("Scripts",required: false); *@
 </body>

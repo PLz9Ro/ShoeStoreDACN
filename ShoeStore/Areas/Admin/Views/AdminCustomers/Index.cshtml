@@ -1,0 +1,78 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<ShoeStore.Models.Customer>
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Index"+CurrentPage;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Index</h1>
+<div class="container"  >
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <span>
+            Danh Sach Khach Hang : Page @CurrentPage;
+        </span>
+        <thead>
+            <tr>
+                <th>
+                    Họ Và Tên
+                </th>
+                <th>
+                    Ngày Sinh
+                </th>
+                <th>
+                    Địa Chỉ
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Số Điện Thoại
+                </th>
+                <th>
+
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.FullName
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Birthday)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Avatar)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LocationId)
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.CustomerId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
