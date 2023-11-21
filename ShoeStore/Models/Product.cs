@@ -14,8 +14,8 @@ namespace ShoeStore.Models
         public int? Discount { get; set; }
         public string? Thumb { get; set; }
         public string? ProductImage { get; set; }
-        public DateTime? DateCreated { get; set; }
-        public DateTime? DateModified { get; set; }
+        public DateTime? DateCreated { get; set; } = DateTime.Now;
+        public DateTime? DateModified { get; set; } = DateTime.Now;
         public bool? BestSellers { get; set; }
         public bool? HomeFlag { get; set; }
         public bool? Active { get; set; }

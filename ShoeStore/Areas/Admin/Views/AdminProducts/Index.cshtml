@@ -6,22 +6,34 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-
 <div class="container-fluid">
     <h2 class="mt-4 text-center fw-bold">
         <p class="">
-            QUẢN LÝ DANH SÁCH SẢN PHẨM  
+            QUẢN LÝ DANH SÁCH SẢN PHẨM
         </p>
     </h2>
+    
     <p class="btn btn-success ">
         <a class="text-white text-decoration-none" asp-action="Create">Create New</a>
     </p>
+    <div class="d-flex justify-content-start ">
+        <div class="m-b-10 m-r-15 mb-2 mr-3 ">
+            <select class="custom-select outline-none" id="CategoryID" name="CategoryID" style="min-width:200px ; height: 45px ; outline:none" asp-items="ViewBag.DanhMuc">
+                <option selected>Chon Danh Muc</option>
+                <option value="all">All</option>
+            </select>
+        </div>
+
+    </div>
     <table class="table">
         <thead>
             <tr>
                 <th>
                     ID
                 </th>
+                <td>
+                    Hình Ảnh
+                </td>
                 <th>
                     Tên Sản Phẩm
                 </th>
@@ -32,14 +44,15 @@
                     Giá
                 </th>
                 <th>
-                    Tồn Kho
-                </th>
-                <th>
                     Trạng Thái
                 </th>
 
+                <th>
+                    Best Seller
                 </th>
-                <th></th>
+                <th>
+
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -50,16 +63,24 @@
                         @item.ProductId
                     </td>
                     <td>
+                        <div class="" style="width: 50px; height: 50px;">
+                        <img src="@item.Thumb" alt="Product Image" class="w-full h-full" style="width: 50px; height: 40px;">
+
+                        </div>
+                    </td>
+                    <td>
                         @item.ProductName
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Cartegoty.CategoryName)
                     </td>
                     <td>
-                        @item.Price.Value.ToString("#,##0") VND
+                        @(item.Price != null ? item.Price.Value.ToString("#,##0") + " VND" : "Price is not available")
+
                     </td>
+
                     <td>
-                        @if (item.UnitsStock.Value > 0)
+                        @if (item.UnitsStock.HasValue && item.UnitsStock.Value > 0)
                         {
                             <div> In Stock</div>
                         }
@@ -69,6 +90,10 @@
                                 Out Of Stock
                             </div>
                         }
+                    </td>
+                    <td>
+                        @item.BestSellers
+
                     </td>
                     <td>
                         <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
@@ -86,4 +111,11 @@
     </div>
 
 </div>
-
+<style>
+    .product-name {
+        width: 200px; /* Độ rộng của phần hiển thị */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>

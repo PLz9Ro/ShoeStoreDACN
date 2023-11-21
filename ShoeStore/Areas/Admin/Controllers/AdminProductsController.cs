@@ -28,8 +28,11 @@ namespace ShoeStore.Areas.Admin.Controllers
             var IsProduct = _context.Products.Include(x => x.Cartegoty).AsNoTracking().OrderByDescending(x => x.ProductId);
             PagedList<Product> models = new PagedList<Product>(IsProduct, pageNumber, pageSize);
             ViewBag.CurrentPage = pageNumber;
+
+            ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
             return View(models);
         }
+
 
         // GET: Admin/AdminProducts/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -53,7 +56,7 @@ namespace ShoeStore.Areas.Admin.Controllers
         // GET: Admin/AdminProducts/Create
         public IActionResult Create()
         {
-            ViewData["CartegotyId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId");
+            ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryId");
             return View();
         }
 
@@ -66,11 +69,13 @@ namespace ShoeStore.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                product.DateModified = DateTime.Now;
+                product.DateCreated = DateTime.Now;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CartegotyId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", product.CartegotyId);
+            ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", product.CartegotyId);
             return View(product);
         }
 
@@ -87,7 +92,7 @@ namespace ShoeStore.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["CartegotyId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", product.CartegotyId);
+            ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", product.CartegotyId);
             return View(product);
         }
 
@@ -123,7 +128,7 @@ namespace ShoeStore.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CartegotyId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", product.CartegotyId);
+            ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", product.CartegotyId);
             return View(product);
         }
 

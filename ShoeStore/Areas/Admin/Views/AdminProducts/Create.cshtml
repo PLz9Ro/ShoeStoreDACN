@@ -5,10 +5,21 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
+<hr />
 <div class="container-fluid">
+    <div class=" mt-5 text-dark">
+        <h2 class="text-center">Thêm Sản Phẩm</h2>
+
+    </div>
+
+    <div class="btn btn-success mb-5">
+        <a class=" text-white text-decoration-none" asp-action="Index">Back to List</a>
+    </div>
+    <hr />
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <form asp-action="Create">
+                <!-- Cột đầu tiên - 6 phần -->
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="ProductName" class="control-label"></label>
@@ -34,11 +45,13 @@
                     <input asp-for="Price" class="form-control" />
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Discount" class="control-label"></label>
-                    <input asp-for="Discount" class="form-control" />
-                    <span asp-validation-for="Discount" class="text-danger"></span>
-                </div>
+                
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <!-- Cột thứ hai - 6 phần -->
+            <form asp-action="Create">
                 <div class="form-group">
                     <label asp-for="Thumb" class="control-label"></label>
                     <input asp-for="Thumb" class="form-control" />
@@ -46,19 +59,19 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="ProductImage" class="control-label"></label>
-                    <input asp-for="ProductImage" class="form-control" />
+
+                    <!-- Input cho URL -->
+                    <div class="input-group mb-3">
+                        <input asp-for="ProductImage" class="form-control" placeholder="URL của ảnh từ bên ngoài" />
+                        <button type="button" class="btn btn-outline-secondary" id="btnUpload">Tải lên từ máy tính</button>
+                    </div>
+
+                    <!-- Input cho tệp tin từ máy tính -->
+                    <input type="file" id="fileUpload" style="display: none;" class="form-control" />
+
                     <span asp-validation-for="ProductImage" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="DateCreated" class="control-label"></label>
-                    <input asp-for="DateCreated" class="form-control" />
-                    <span asp-validation-for="DateCreated" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="DateModified" class="control-label"></label>
-                    <input asp-for="DateModified" class="form-control" />
-                    <span asp-validation-for="DateModified" class="text-danger"></span>
-                </div>
+                
                 <div class="form-group">
                     <label asp-for="BestSellers" class="control-label"></label>
                     <input asp-for="BestSellers" class="form-control" />
@@ -70,39 +83,9 @@
                     <span asp-validation-for="HomeFlag" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Active" class="control-label"></label>
-                    <input asp-for="Active" class="form-control" />
-                    <span asp-validation-for="Active" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Tags" class="control-label"></label>
-                    <input asp-for="Tags" class="form-control" />
-                    <span asp-validation-for="Tags" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Title" class="control-label"></label>
-                    <input asp-for="Title" class="form-control" />
-                    <span asp-validation-for="Title" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Alias" class="control-label"></label>
-                    <input asp-for="Alias" class="form-control" />
-                    <span asp-validation-for="Alias" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="MetaDesc" class="control-label"></label>
-                    <input asp-for="MetaDesc" class="form-control" />
-                    <span asp-validation-for="MetaDesc" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="MetaKey" class="control-label"></label>
-                    <input asp-for="MetaKey" class="form-control" />
-                    <span asp-validation-for="MetaKey" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="UnitsStock" class="control-label"></label>
-                    <input asp-for="UnitsStock" class="form-control" />
-                    <span asp-validation-for="UnitsStock" class="text-danger"></span>
+                    <label asp-for="Discount" class="control-label"></label>
+                    <input asp-for="Discount" class="form-control" />
+                    <span asp-validation-for="Discount" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />
@@ -110,11 +93,12 @@
             </form>
         </div>
     </div>
-
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
 </div>
-<hr />
+
+<script>
+    document.getElementById('btnUpload').addEventListener('click', function() {
+        document.getElementById('fileUpload').click();
+    });
+</script>
 
 
