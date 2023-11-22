@@ -5,87 +5,73 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Details</h1>
 
-<div>
-    <h4>Category</h4>
+<div class="container-fluid">
+
+    <h2 class="text-center pt-5">Thông Tin Danh Mục</h2>
+
+    <div class="mt-2 mb-2 btn btn-success">
+        <a class=" text-white text-decoration-none" asp-action="Index">Back to List</a>
+
+    </div>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CategoryName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ParentId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ParentId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Levels)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Levels)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Published)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Published)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Oder)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Oder)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Thumbnail)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Thumbnail)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Alias)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Alias)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MetaDesc)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MetaDesc)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MetaKey)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MetaKey)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cover)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cover)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.CategoryId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+        <div class="row">
+        <table class="table table-bordered">
+            
+            <tbody>
+
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.CategoryName)</th>
+                    <td>@Html.DisplayFor(model => model.CategoryName)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Description)</th>
+                    <td>@Html.DisplayFor(model => model.Description)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.ParentId)</th>
+                    <td>@Html.DisplayFor(model => model.ParentId)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Levels)</th>
+                    <td>@Html.DisplayFor(model => model.Levels)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Published)</th>
+                    <td>@Html.DisplayFor(model => model.Published)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Oder)</th>
+                    <td>@Html.DisplayFor(model => model.Oder)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Thumbnail)</th>
+                    <td>@Html.DisplayFor(model => model.Thumbnail)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Title)</th>
+                    <td>@Html.DisplayFor(model => model.Title)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Alias)</th>
+                    <td>@Html.DisplayFor(model => model.Alias)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.MetaDesc)</th>
+                    <td>@Html.DisplayFor(model => model.MetaDesc)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.MetaKey)</th>
+                    <td>@Html.DisplayFor(model => model.MetaKey)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Cover)</th>
+                    <td>@Html.DisplayFor(model => model.Cover)</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+
 </div>
