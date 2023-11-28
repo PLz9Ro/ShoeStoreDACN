@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
+using ShoeStore.Hellper;
 using ShoeStore.Models;
 
 namespace ShoeStore.Areas.Admin.Controllers
@@ -21,18 +22,32 @@ namespace ShoeStore.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminProducts
-        public IActionResult Index(int? page)
+        public async Task<IActionResult> Index(int? page, int CategoryId = 0)
         {
             var pageNumber = page == null || page <= 0 ? 1 : page.Value;
             var pageSize = 15;
-            var IsProduct = _context.Products.Include(x => x.Cartegoty).AsNoTracking().OrderByDescending(x => x.ProductId);
-            PagedList<Product> models = new PagedList<Product>(IsProduct, pageNumber, pageSize);
+            IQueryable<Product> query = _context.Products.AsQueryable().Include(x => x.Cartegory).AsNoTracking().OrderByDescending(x => x.ProductId);
+
+            if (CategoryId != 0)
+            {
+                query = query.Where(x => x.CartegoryId == CategoryId);
+            }
+
+            PagedList<Product> models = new PagedList<Product>(query, pageNumber, pageSize);
             ViewBag.CurrentPage = pageNumber;
 
             ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
             return View(models);
         }
-
+        public IActionResult Filtter(int CategoryId = 0)
+        {
+            var url = $"/Admin/AdminProducts?CategoryId={CategoryId}";
+            if (CategoryId == 0)
+            {
+                url = $"/Admin/AdminProducts";
+            }
+            return Json(new { status = "success", redirectUrl = url });
+        }
 
         // GET: Admin/AdminProducts/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -43,7 +58,7 @@ namespace ShoeStore.Areas.Admin.Controllers
             }
 
             var product = await _context.Products
-                .Include(p => p.Cartegoty)
+                .Include(p => p.Cartegory)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {
@@ -56,7 +71,7 @@ namespace ShoeStore.Areas.Admin.Controllers
         // GET: Admin/AdminProducts/Create
         public IActionResult Create()
         {
-            ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryId");
+            ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
             return View();
         }
 
@@ -65,19 +80,48 @@ namespace ShoeStore.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,ProductName,ShortDesciption,Description,CartegotyId,Price,Discount,Thumb,ProductImage,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,MetaDesc,MetaKey,UnitsStock")] Product product)
+        public async Task<IActionResult> Create([Bind("ProductId,ProductName,ShortDesciption,Description,CartegotyId,Price,Discount,Thumb,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,MetaDesc,MetaKey,UnitsStock")] Product product, Microsoft.AspNetCore.Http.IFormFile fThumb)
         {
+            /* if (ModelState.IsValid)
+             {
+
+                 _context.Add(product);
+                 await _context.SaveChangesAsync();
+                 return RedirectToAction(nameof(Index));
+             }
+ *//*            ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", product.CartegotyId);
+ *//*            ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
+
+             return View(product);*/
             if (ModelState.IsValid)
             {
+                product.ProductName = Unilities.ToTitleCase(product.ProductName);
+                if (fThumb != null)
+                {
+                    string extension = Path.GetExtension(fThumb.FileName);
+                    string image = Unilities.SEOUrl(product.ProductName) + extension;
+                    product.Thumb = await Unilities.UploadFile(fThumb, @"products", image.ToLower());
+                }
+                if (string.IsNullOrEmpty(product.Thumb))
+                {
+                    product.Thumb = "default.jpg";
+                }
+                product.Alias = Unilities.SEOUrl(product.ProductName);
                 product.DateModified = DateTime.Now;
                 product.DateCreated = DateTime.Now;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", product.CartegotyId);
+            var categories = _context.Categories.Select(c => new
+            {
+                c.CategoryId,
+                c.CategoryName
+            }).ToList();
+            ViewData["DanhMuc"] = new SelectList(categories, "CategoryId", "CategoryName");
             return View(product);
         }
+
 
         // GET: Admin/AdminProducts/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -92,7 +136,7 @@ namespace ShoeStore.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", product.CartegotyId);
+            ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", product.CartegoryId);
             return View(product);
         }
 
@@ -101,7 +145,7 @@ namespace ShoeStore.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,ShortDesciption,Description,CartegotyId,Price,Discount,Thumb,ProductImage,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,MetaDesc,MetaKey,UnitsStock")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,ShortDesciption,Description,CartegotyId,Price,Discount,Thumb,ProductImage,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,MetaDesc,MetaKey,UnitsStock")] Product product, Microsoft.AspNetCore.Http.IFormFile fthumb)
         {
             if (id != product.ProductId)
             {
@@ -128,7 +172,7 @@ namespace ShoeStore.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", product.CartegotyId);
+            ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", product.CartegoryId);
             return View(product);
         }
 
@@ -141,7 +185,7 @@ namespace ShoeStore.Areas.Admin.Controllers
             }
 
             var product = await _context.Products
-                .Include(p => p.Cartegoty)
+                .Include(p => p.Cartegory)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {

@@ -12,7 +12,7 @@
             QUẢN LÝ DANH SÁCH SẢN PHẨM
         </p>
     </h2>
-    
+
     <p class="btn btn-success ">
         <a class="text-white text-decoration-none" asp-action="Create">Create New</a>
     </p>
@@ -20,7 +20,7 @@
         <div class="m-b-10 m-r-15 mb-2 mr-3 ">
             <select class="custom-select outline-none" id="CategoryID" name="CategoryID" style="min-width:200px ; height: 45px ; outline:none" asp-items="ViewBag.DanhMuc">
                 <option selected>Chon Danh Muc</option>
-                <option value="all">All</option>
+                <option value="0">All</option>
             </select>
         </div>
 
@@ -64,7 +64,7 @@
                     </td>
                     <td>
                         <div class="" style="width: 50px; height: 50px;">
-                        <img src="@item.Thumb" alt="Product Image" class="w-full h-full" style="width: 50px; height: 40px;">
+                            <img src="@item.Thumb" alt="Product Image" class="w-full h-full" style="width: 50px; height: 40px;" asp-append-version="true">
 
                         </div>
                     </td>
@@ -72,7 +72,7 @@
                         @item.ProductName
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Cartegoty.CategoryName)
+                        @Html.DisplayFor(modelItem => item.Cartegory.CategoryName)
                     </td>
                     <td>
                         @(item.Price != null ? item.Price.Value.ToString("#,##0") + " VND" : "Price is not available")
@@ -92,23 +92,23 @@
                         }
                     </td>
                     <td>
-                        @item.BestSellers
+@item.BestSellers
 
                     </td>
-                    <td>
-                        <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                        <a class="btn btn-light" asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
-                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
-                    </td>
+<td>
+    <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+    <a class="btn btn-light" asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+</td>
                 </tr>
             }
         </tbody>
     </table>
-    <div aria-label="Page navigation">
-        <ul class="pagination">
-            <pager class="paper-container" list="@Model" asp-area="Admin" asp-controller="AdminCustomers" asp-action="Index"></pager>
-        </ul>
-    </div>
+<div aria-label="Page navigation">
+    <ul class="pagination">
+        <pager class="paper-container" list="@Model" asp-area="Admin" asp-controller="AdminCustomers" asp-action="Index"></pager>
+    </ul>
+</div>
 
 </div>
 <style>
@@ -119,3 +119,34 @@
         text-overflow: ellipsis;
     }
 </style>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#txtCategoryID").change(function () {
+                var catID = $(this).children(":selected").attr("value");
+                catID = parseFloat(catID);
+                $('#txtCategoryID option').removeAttr('selected');
+                $("#txtCategoryID > [value=" + catID + "]").attr("selected", "true");
+
+                $.ajax({
+                    url: '/Admin/AdminProducts/Filtter',
+                    dataType: "json",
+                    type: "GET",
+                    data: {
+                        CategoryId: catID
+                    },
+                    async: true,
+                    success: function (results) {
+                        if (results.status == "success") {
+                            window.location.href = results.redirectUrl;
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            });
+        });
+    </script>
+}

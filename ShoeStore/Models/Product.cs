@@ -9,13 +9,13 @@ namespace ShoeStore.Models
         public string? ProductName { get; set; }
         public string? ShortDesciption { get; set; }
         public string? Description { get; set; }
-        public int? CartegotyId { get; set; }
+        public int? CartegoryId { get; set; }
         public int? Price { get; set; }
         public int? Discount { get; set; }
         public string? Thumb { get; set; }
         public string? ProductImage { get; set; }
-        public DateTime? DateCreated { get; set; } = DateTime.Now;
-        public DateTime? DateModified { get; set; } = DateTime.Now;
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateModified { get; set; }
         public bool? BestSellers { get; set; }
         public bool? HomeFlag { get; set; }
         public bool? Active { get; set; }
@@ -26,6 +26,6 @@ namespace ShoeStore.Models
         public string? MetaKey { get; set; }
         public int? UnitsStock { get; set; }
 
-        public virtual Category? Cartegoty { get; set; }
+        public virtual Category? Cartegory { get; set; }
     }
 }

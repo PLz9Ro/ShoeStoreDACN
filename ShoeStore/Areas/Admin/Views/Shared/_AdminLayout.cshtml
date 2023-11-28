@@ -1,4 +1,5 @@
-﻿<head>
+﻿<html>
+<head>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,9 +11,8 @@
 
     <!-- Custom fonts for this template-->
     <link href="~/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="~/assets/css/sb-admin-2.min.css" rel="stylesheet">
@@ -27,14 +27,12 @@
         <!-- Sidebar -->
         @await Html.PartialAsync("_SidebarPartialView.cshtml")
         <!-- End of Sidebar -->
-  
         @RenderBody();
         <!-- Content Wrapper -->
         <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
-
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
@@ -42,7 +40,7 @@
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -76,6 +74,7 @@
     <!-- Page level custom scripts -->
     <script src="~/assets/js/demo/chart-area-demo.js"></script>
     <script src="~/assets/js/demo/chart-pie-demo.js"></script>
-@*     @await Component.InvokeAsync("Notyf");
-    @await RenderSectionAsync("Scripts",required: false); *@
+    @await Component.InvokeAsync("Notyf");
+    @RenderSection("Scripts", required: false)
 </body>
+</html>
