@@ -185,7 +185,7 @@ namespace ShoeStore.Models
 
                 entity.Property(e => e.Alias).HasMaxLength(250);
 
-                entity.Property(e => e.CartegoryId).HasColumnName("CartegoryID");
+                entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
                 entity.Property(e => e.DateCreated).HasColumnType("datetime");
 
@@ -207,9 +207,9 @@ namespace ShoeStore.Models
 
                 entity.Property(e => e.Title).HasMaxLength(250);
 
-                entity.HasOne(d => d.Cartegory)
+                entity.HasOne(d => d.Category)
                     .WithMany(p => p.Products)
-                    .HasForeignKey(d => d.CartegoryId)
+                    .HasForeignKey(d => d.CategoryId)
                     .HasConstraintName("FK_Product_Category");
             });
 

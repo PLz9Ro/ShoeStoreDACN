@@ -1,0 +1,69 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<ShoeStore.Models.Page>
+
+@{
+    ViewData["Title"] = "Danh Sach Page";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <h2 class="mt-5 text-center fw-bold">
+        <p class="">
+            QUẢN LÝ DANH SÁCH SẢN PHẨM
+        </p>
+    </h2>
+
+    <p class="btn btn-success ">
+        <a class="text-white text-decoration-none" asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    PageName
+                </th>
+                <th>
+                    Contents
+                </th>
+
+                <th>
+                    Published
+                </th>
+                <th>
+                    Title
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PageName)
+                    </td>
+                    
+                    <td>
+                        <div>@Html.Raw(item.Contents)</div>
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Published)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+
+                    <td>
+                        <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.PageId">Edit</a> |
+                        <a class="btn btn-light" asp-action="Details" asp-route-id="@item.PageId">Details</a> |
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PageId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

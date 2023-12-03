@@ -5,9 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Details</h1>
-
-<div>
+<div class="container-fluid">
     <h4>Product</h4>
     <hr />
     <dl class="row">
@@ -120,10 +118,10 @@
             @Html.DisplayFor(model => model.UnitsStock)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cartegory)
+            @Html.DisplayNameFor(model => model.Category)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cartegory.CategoryId)
+            @Html.DisplayFor(model => model.Category.CategoryId)
         </dd>
     </dl>
 </div>

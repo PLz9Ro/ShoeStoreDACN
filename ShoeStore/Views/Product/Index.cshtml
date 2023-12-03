@@ -1,0 +1,160 @@
+﻿@model IEnumerable<ShoeStore.Models.Product>
+@{
+    ViewData["Title"] = "Shop";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="shopify-grid padding-large">
+    <div class="container">
+        <div class="row">
+            <aside class="col-md-3">
+                <div class="sidebar">
+                    <div class="widgets widget-menu">
+                        <div class="widget-search-bar">
+                            <form role="search" method="get" class="d-flex">
+                                <input class="search-field"
+                                       placeholder="Search"
+                                       type="text" />
+                                <button class="btn btn-dark">
+                                    <i class="icon icon-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="widgets widget-product-brands">
+                        <h5 class="widget-title">Brands</h5>
+                        <ul class="product-tags sidebar-list list-unstyled">
+                            <li class="tags-item">
+                                <a href="">Nike</a>
+                            </li>
+                            <li class="tags-item">
+                                <a href="">Adidas</a>
+                            </li>
+                            <li class="tags-item">
+                                <a href="">Jordan</a>
+                            </li>
+                            <li class="tags-item">
+                                <a href="">YeeZy</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <h5 class="widget-title">Size</h5>
+                        <button class="btn btn-secondary dropdown-toggle"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            All
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">38</a></li>
+                            <li><a class="dropdown-item" href="#">39</a></li>
+                            <li><a class="dropdown-item" href="#">40</a></li>
+                            <li><a class="dropdown-item" href="#">41</a></li>
+                            <li><a class="dropdown-item" href="#">41.5</a></li>
+                            <li><a class="dropdown-item" href="#">42</a></li>
+                            <li><a class="dropdown-item" href="#">42.5</a></li>
+                            <li><a class="dropdown-item" href="#"></a></li>
+                        </ul>
+                    </div>
+                    <div class="widgets widget-price-filter">
+                        <h5 class="widget-title">Filter By Price</h5>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle"
+                                    type="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                All
+                            </button>
+                            <ul class="dropdown-menu product-tags sidebar-list list-unstyled">
+                                <li class="tags-item">
+                                    <a class="dropdown-item" href="#">Dưới 3 triệu</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">Từ 3 Đến 5 Triệu</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">Từ 5 Đến 10 Triệu</a>
+                                </li>
+                                <li><a class="dropdown-item" href="#">Trên 10 Triệu</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                   
+                </div>
+            </aside>
+            <section id="selling-products" class="col-md-9 product-store">
+                <div class="container">
+                    <div class="tab-content">
+                        <div id="all" data-tab-content class="active">
+                            <div class="row d-flex flex-wrap" >
+                                @if (Model != null && Model.Count() > 0)
+                                {
+                                    @foreach (var item in Model)
+                                    {
+                                        <div class="product-item col-lg-3 col-md-6 col-sm-6">
+
+                                            <div class="image-holder" >
+                                                <img src="~/images/products/@item.Thumb"
+                                                     alt="@item.Title"
+                                                     class="product-image"
+                                                     style="height:300px; object-fit" />
+
+                                            </div>
+                                            <div class="cart-concern">
+                                                <div class="cart-button d-flex justify-content-between align-items-center">
+                                                    <button type="button"
+                                                            class="btn-wrap cart-link d-flex align-items-center">
+                                                        add to cart <i class="icon icon-arrow-io"></i>
+                                                    </button>
+                                                    <button type="button" class="view-btn tooltip d-flex">
+                                                        <i class="icon icon-screen-full"></i>
+                                                        <span class="tooltip-text">Quick view</span>
+                                                    </button>
+                                                    <button type="button" class="wishlist-btn">
+                                                        <i class="icon icon-heart"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="product-detail">
+                                                <h3 class="product-title fs-5 text-truncate">
+                                                    <a href="single-product.html">@item.ProductName</a>
+                                                </h3>
+                                                <div class="item-price text-primary fs-6 mt-3">
+                                                    @{
+                                                        var priceValue = item.Price.HasValue ? item.Price.Value.ToString("#,##") + "VND" : "N/A";
+                                                    }
+                                                    @priceValue
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+                                }
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <nav class="navigation paging-navigation text-center padding-medium"
+                         role="navigation">
+                        <div class="pagination loop-pagination d-flex justify-content-center">
+                            <a href="#"
+                               class="pagination-arrow d-flex align-items-center">
+                                <i class="icon icon-arrow-left"></i>
+                            </a>
+                            <span aria-current="page" class="page-numbers current">1</span>
+                            <a class="page-numbers" href="#">2</a>
+                            <a class="page-numbers" href="#">3</a>
+                            <a href="#"
+                               class="pagination-arrow d-flex align-items-center">
+                                <i class="icon icon-arrow-right"></i>
+                            </a>
+                        </div>
+                    </nav>
+                </div>
+            </section>
+            
+        </div>
+    </div>
+</div>

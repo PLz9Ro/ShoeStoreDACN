@@ -1,0 +1,116 @@
+﻿@model ShoeStore.Models.Page
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Styles{
+    <link href="~/assets/summernote/summernote-bs5.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet" />
+
+}
+<div class="container-fluid">
+    <h2 class="mt-4 text-center">Tạo Mới Page</h2>
+
+    <div class="mt-2 mb-2 btn btn-success">
+        <a class=" text-dark text-decoration-none" asp-action="Index">Back to List</a>
+
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="PageName" class="control-label">Tên Page</label>
+                            <input asp-for="PageName" class="form-control" />
+                            <span asp-validation-for="PageName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Thumbnail" class="control-label">Ảnh Đại Diện</label>
+                            <input name="fThumb" type="file" class="form-control-file" asp-for="Thumbnail"> <span asp-validation-for-"Thumbnail" class="text-danger"></span>
+                            <span asp-validation-for="Thumbnail" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+              
+                <div class="form-group">
+                    <label asp-for="Contents" class="control-label"></label>
+                    <textarea asp-for="Contents" name="Contents" id="summernote"></textarea>
+                    <span asp-validation-for="Contents" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Title" class="control-label"></label>
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="MetaDesc" class="control-label"></label>
+                            <input asp-for="MetaDesc" class="form-control" />
+                            <span asp-validation-for="MetaDesc" class="text-danger"></span>
+                        </div>
+                    </div> <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="MetaKey" class="control-label"></label>
+                            <input asp-for="MetaKey" class="form-control" />
+                            <span asp-validation-for="MetaKey" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Published" class="control-label"></label>
+                            <input asp-for="Published" class="form-control" />
+                            <span asp-validation-for="Published" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Ordering" class="control-label"></label>
+                            <input asp-for="Ordering" class="form-control" />
+                            <span asp-validation-for="Ordering" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+               
+
+               
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+   
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+    <script src="~/assets/summernote/summernote-bs5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#summernote').summernote({
+                fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New'],
+                styleTags: ['p', 'h1', 'h2', 'h3', 'h', 'h5'],
+                height: 200,
+                minHeight: null,
+                maxHeight: null,
+                focus:true
+            });
+        });
+    </script>
+}
