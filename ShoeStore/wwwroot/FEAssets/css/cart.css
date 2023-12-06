@@ -1,0 +1,19 @@
+tr td.Price,td.Quantity,td.actions, .col-md-9 {
+        font-size: 30px;
+        color: black;
+        padding-top: 50px;
+}
+.text-md-left a{
+    color: black;
+    font-size: 30px;
+}
+
+.go-shop:hover{
+    color: paleturquoise !important;
+}
+
+.noti-cart{
+    font-size: 30px;
+    font-weight: 500;
+    color:black
+}

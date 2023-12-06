@@ -15,6 +15,7 @@ namespace ShoeStore.Models
         public int? RoleId { get; set; }
         public DateTime? LastLogin { get; set; }
         public DateTime? CreateDay { get; set; }
+        public string? ConfirmPassword { get; set; }
 
         public virtual Role? Role { get; set; }
     }

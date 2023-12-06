@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using AspNetCoreHero.ToastNotification.Notyf;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,12 +21,24 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 
 builder.Services.AddSingleton<HtmlEncoder>(HtmlEncoder.Create(allowedRanges:new [] {UnicodeRanges.All }));
-
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/dang-nhap.html";
+        options.AccessDeniedPath = "/";
+    });
 builder.Services.AddNotyf(config =>
 {
     config.DurationInSeconds = 10;
     config.IsDismissable = true;
     config.Position = NotyfPosition.TopRight;
+});
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
 });
 
 var app = builder.Build();
@@ -39,11 +52,11 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthorization();
-
+app.UseAuthentication();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(

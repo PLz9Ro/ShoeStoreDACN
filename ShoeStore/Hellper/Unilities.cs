@@ -31,7 +31,22 @@ namespace ShoeStore.Hellper
             }
             return result;
         }
-
+        public static bool IsValidEmail(string email)
+        {
+            if (email.Trim().EndsWith("."))
+            {
+                return false; // suggested by @TK-421
+            }
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public static string GetRandomKey(int length = 5)
         {
             //chuỗi mẫu (pattern)

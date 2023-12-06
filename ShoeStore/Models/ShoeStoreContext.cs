@@ -72,6 +72,8 @@ namespace ShoeStore.Models
 
                 entity.Property(e => e.Birthday).HasColumnType("datetime");
 
+                entity.Property(e => e.ConfirmPassword).HasMaxLength(50);
+
                 entity.Property(e => e.CreateDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Email).HasMaxLength(250);
@@ -81,6 +83,8 @@ namespace ShoeStore.Models
                 entity.Property(e => e.LastLogin).HasColumnType("datetime");
 
                 entity.Property(e => e.LocationId).HasColumnName("LocationID");
+
+                entity.Property(e => e.Password).HasMaxLength(50);
 
                 entity.Property(e => e.Phone)
                     .HasMaxLength(12)
@@ -255,6 +259,8 @@ namespace ShoeStore.Models
             modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("User");
+
+                entity.Property(e => e.ConfirmPassword).HasMaxLength(50);
 
                 entity.Property(e => e.CreateDay).HasColumnType("datetime");
 
