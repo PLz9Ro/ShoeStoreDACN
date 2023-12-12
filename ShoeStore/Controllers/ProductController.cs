@@ -57,17 +57,26 @@ namespace ShoeStore.Controllers
             }
          
         }
+
         [Route("/{Alias}-{id}.html", Name = "ProductDetails")]
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             try
             {
-                var product = _context.Products.Include(x => x.CategoryId).FirstOrDefault(x => x.ProductId == id);
+                var product = _context.Products.Include(p => p.Category).FirstOrDefault(x => x.ProductId == id);
                 if (product == null)
                 {
                     return RedirectToAction("Index");
                 }
-                    return View(product);
+
+                var lsproduct = _context.Products.AsNoTracking()
+                    .Where(x => x.CategoryId == product.CategoryId && x.ProductId != id && x.Active == true)
+                    .OrderByDescending(x => x.DateCreated)
+                    .Take(4)
+                    .ToList();
+
+                ViewBag.product = lsproduct;
+                return View(product);
 
             }
             catch {

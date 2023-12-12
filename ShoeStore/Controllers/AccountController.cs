@@ -55,7 +55,7 @@ namespace ShoeStore.Controllers
             }
 
         }
-        [Route("tai-khoan-cua-toi.html", Name = "Dashboard")]
+        [Route("dashboard.html", Name = "Dashboard")]
         public IActionResult Dashboard()
         {
             var cusID = HttpContext.Session.GetString("CustomerId"); 
@@ -64,6 +64,13 @@ namespace ShoeStore.Controllers
                 var userCus = _context.Customers.AsNoTracking().SingleOrDefault( x => x.CustomerId == Convert.ToInt32(cusID));
                 if(userCus != null)
                 {
+                    var lsOrder = _context.Orders
+                        .Include(x => x.TransactionStatus)
+                        .AsNoTracking()
+                        .Where(x => x.CustomerId == userCus.CustomerId)
+                        .OrderByDescending(x => x.OrderDate)
+                        .ToList();
+                    ViewBag.Orders = lsOrder;
                     return View(userCus);
                 }
              }
@@ -73,58 +80,66 @@ namespace ShoeStore.Controllers
         {
             return View();
         }
-        [HttpGet]
-        [AllowAnonymous]
-        [Route("dang-nhap.html", Name = "DangNhap")]
-        /*[Route("dang-nhap.html", Name = "DangNhap")]*/
-        public ActionResult Login(string returnUrl = null)
-        {
-            var userCus = HttpContext.Session.GetString("CustomerId"); 
-            if (userCus != null)
+            [HttpGet]
+            [AllowAnonymous]
+            [Route("dang-nhap.html", Name = "DangNhap")]
+            /*[Route("dang-nhap.html", Name = "DangNhap")]*/
+            public ActionResult Login()
             {
-                return RedirectToAction("Dashboard", "Account");
-            }
-            return View();
-        }
-        [HttpPost]
-        [AllowAnonymous]
-        [Route("dang-nhap.html", Name = "DangNhap")]
-
-        public async Task<IActionResult> Login(LoginViewModel customer , string returnUrl = null)
-        {
-            try
-            {
-                if (ModelState.IsValid)
+                var userCus = HttpContext.Session.GetString("CustomerId"); 
+                if (userCus != null)
                 {
-                    bool isEmail = Unilities.IsValidEmail(customer.UserName);
-                    if (!isEmail) return View(customer);
-                    var userCus = _context.Customers.AsNoTracking().SingleOrDefault(x => x.Email.Trim() == customer.UserName);
-
-                    if (userCus != null) return RedirectToAction("Register");
-                    string pass = (customer.Password + userCus.Salt.Trim()).ToMD5();
-                    if (userCus.Password != pass)
-                    {
-                        return View(customer);
-                    }
-                    if (userCus.Active == false) return RedirectToAction("ThongBao", "Accounts");
-                    //Lưu Session Makh
-                    HttpContext.Session.SetString("CustomerId", userCus.CustomerId.ToString());
-                    var userCusId = HttpContext.Session.GetString("CustomerId");
-                    //Identity
-                    var claims = new List<Claim>
-                        {
-                        new Claim(ClaimTypes.Name, userCus.FullName), new Claim("CustomerId", userCus.CustomerId.ToString())
-                        };
-                    ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "login");
-                    ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-                    await HttpContext.SignInAsync(claimsPrincipal); return RedirectToAction("Shipping", "Checkout");
+                    return RedirectToAction("Dashboard", "Account");
                 }
+                return View();
             }
-            catch {
-                return RedirectToAction("Register", "Accounts");
+            [HttpPost]
+            [AllowAnonymous]
+            [Route("dang-nhap.html", Name = "DangNhap")]
+            public async Task<IActionResult> Login(LoginViewModel customer)
+            {
+
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+                        bool isEmail = Unilities.IsValidEmail(customer.UserName);
+                        if (!isEmail) return View(customer);
+
+                        var userCus = _context.Customers.AsNoTracking().SingleOrDefault(x => x.Email.Trim() == customer.UserName);
+
+                        if (userCus == null) return RedirectToAction("Register");
+                        string pass = (customer.Password + userCus.Salt.Trim()).ToMD5();
+                        if (userCus.Password != pass)
+                        {
+                            return View(customer);
+                        }
+                        if (userCus.Active == false)
+                        {
+                            return RedirectToAction("ThongBao", "Accounts");
+                        }
+                        //Lưu Session Makh
+                        HttpContext.Session.SetString("CustomerId", userCus.CustomerId.ToString());
+                        var userCusId = HttpContext.Session.GetString("CustomerId");
+                        //Identity
+                        var claims = new List<Claim>()
+                            {
+                            new Claim(ClaimTypes.NameIdentifier, userCus.FullName), 
+                            new Claim("CustomerId", userCus.CustomerId.ToString())
+                            };
+                        ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "login");
+                        ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                  
+                        await HttpContext.SignInAsync(claimsPrincipal); 
+                    return RedirectToAction("Dashboard", "Account");
+                    }
+                }
+                catch (Exception ex)
+            {
+                    return RedirectToAction("Dashboard", "Account");
+                }
+                return View(customer);
             }
-            return View(customer);
-        }
         [AllowAnonymous]
         [Route("dang-ky.html", Name = "DangKy")]
         public IActionResult Register()
@@ -152,7 +167,7 @@ namespace ShoeStore.Controllers
                         Active = true,
                         Salt = salt,
                         CreateDate = DateTime.Now,
-                        LastLogin = DateTime.Today
+                        LastLogin = DateTime.Now
                     };
                     try
                     { 

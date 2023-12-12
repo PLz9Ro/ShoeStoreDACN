@@ -1,0 +1,178 @@
+﻿@model List<ShoeStore.ModelViews.CartItem>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container py-5 my-5">
+    <div class="cart-area ">
+        @if (Model != null && Model.Count() > 0)
+        {
+
+            <section class="pt-5 pb-5">
+                <div class="container">
+                    <div class="row w-100">
+                        <div class="col-lg-12 col-md-12 col-12">
+                            <h3 class="display-5 mb-2 text-center">Shopping Cart</h3>
+                            <p class="noti-cart mb-5 text-center">
+                                <i style="color: powderblue !important"
+                                   class="text-info font-weight-bold">3</i>
+                                items in your cart
+                            </p>
+                            <table id="shoppingCart"
+                                   class="table table-condensed table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 30%">Product Name</th>
+                                        <th style="width: 30%">Images</th>
+                                        <th style="width: 12%">Price</th>
+                                        <th style="width: 10%">Quantity</th>
+                                        <th style="width: 16%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @if (Model != null && Model.Count() > 0)
+                                    {
+
+                                        foreach (var item in Model)
+                                        {
+                                            <tr class="cart-product ">
+                                                <td data-th="Product">
+                                                    <div class="row">
+                                                        <div class="col-md-9 text-left ">
+                                                            <h4>@item.product.ProductName</h4>
+                                                            <p class="font-weight-light">@item.product.Title</p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td data-th="Product">
+                                                <div class="row">
+                                                    <div class="col-md-3 text-left">
+                                                       <img src="~/images/products/@item.product.Thumb"
+                                                             alt="@item.product.Title"
+                                                                 class="d-none d-md-block rounded mb-2 shadow" style="height: 60px; width: 100%; object-fit: cover;" />
+                                                        </div>
+                                                    
+                                                </div>
+                                                </td>
+                                                <td class="Price" data-th="Price">@item.product.Price.Value.ToString("#,##")VND</td>
+                                                <td class="product-quantity ">
+                                                    <div class="d-flex align-items-center text-align-center">
+                                                        <input data-productid="@item.product.ProductId" type="number" data-price="@item.product.Price" class="pdate-cart form-control form-control-lg" min="1" value="@item.amount">
+                                                        <i class="fas fa-sync update-cart"></i>
+
+                                                    </div>
+                                                </td>
+
+                                                <td class="actions" data-th="">
+                                                    <div class="text-right">
+                                                        <span>
+                                                            <input data-productid="@item.product.ProductId"  class="btn btn-lg" id="Removecart" value="X"/>
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                            <div class="float-right text-right">
+                                <h4>Subtotal:</h4>
+                                <h1>@Model.Sum(x => x.TotalMoney).ToString("#,##")</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4 d-flex align-items-center">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                        <div class="col-sm-6 order-md-2 text-right">
+                            <a href="checkout.html"
+                               class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Checkout</a>
+                        </div>    
+                        }
+                        else{
+                            <div class="col-sm-6 order-md-2 text-right">
+                                <a href="/dang-nhap.html?returnUrl=/checkout.html" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Checkout</a>
+                            </div>
+                        }
+                        <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
+                            <a class="go-shop" href="shop.html">
+                                <i class="fas fa-arrow-left mr-2 text-sm"></i> Continue Shopping
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+        }
+        else
+        {
+            <div class="text-center">
+
+                <p> Don't have any product in cart yet !!</p>
+            </div>
+
+        }
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            function loadHeaderCart() {
+                $("#numberCart").load("/AjaxContent/NumberCart");
+            }
+            $(".update-cart").click(function () {
+                var productid = $(this).prev("input.pdate-cart").data("productid");
+                var amount = parseInt($(this).prev("input.pdate-cart").val());
+                console.log("id" + productid);
+                console.log("id" + amount);
+                $.ajax({
+                    url: "/api/cart/update",
+                    type: "POST",
+                    dataType: "JSON",
+                    data: {
+                        productID: productid,
+                        amount: amount
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            loadHeaderCart();
+                            window.location = 'cart.html';
+                        }
+                    },
+                    error: function (rs) {
+                        alert("Cập nhật Cart Error!");
+                    }
+                });
+            });
+            $("#Removecart").click(function () {
+                var productid = $(this).attr("data-productid");
+                $.ajax({
+                    url: "/api/cart/remove",
+                    type: "POST",
+                    dataType: "JSON",
+                    data: { productID: productid },
+                    success: function (result) {
+                        if (result.success) {
+                            loadHeaderCart();//Reload lại giỏ hàng
+                            window.location = 'cart.html';
+                        }
+                    },
+                    error: function (rs) {
+                        alert("Cập nhật Cart Error!");
+                    }
+                });
+
+            });
+
+        });
+
+    </script>
+}
+
+

@@ -1,9 +1,13 @@
-﻿@model IEnumerable<ShoeStore.Models.Product>
+﻿
+@using PagedList.Core.Mvc;
+@model PagedList.Core.IPagedList<ShoeStore.Models.Product>
 @{
     ViewData["Title"] = "Shop";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
-
+@* int PageCurrent = ViewBag.CurrenPage;
+    int PageNext = PageCurrent + 1; *@
 <div class="shopify-grid padding-large">
     <div class="container">
         <div class="row">
@@ -92,33 +96,34 @@
                                 {
                                     @foreach (var item in Model)
                                     {
+                                        string url = $"/{@item.Alias}-{@item.ProductId}.html";
                                         <div class="product-item col-lg-3 col-md-6 col-sm-6">
-
                                             <div class="image-holder" >
-                                                <img src="~/images/products/@item.Thumb"
+                                                <a asp-route="ProductDetails" asp-route-id="@item.ProductId" asp-route-alias="@item.Alias">
+                                                    <img src="~/images/products/@item.Thumb"
                                                      alt="@item.Title"
                                                      class="product-image"
                                                      style="height:300px; object-fit" />
-
+                                                </a>
                                             </div>
-                                            <div class="cart-concern">
-                                                <div class="cart-button d-flex justify-content-between align-items-center">
-                                                    <button type="button"
-                                                            class="btn-wrap cart-link d-flex align-items-center">
-                                                        add to cart <i class="icon icon-arrow-io"></i>
-                                                    </button>
-                                                    <button type="button" class="view-btn tooltip d-flex">
-                                                        <i class="icon icon-screen-full"></i>
-                                                        <span class="tooltip-text">Quick view</span>
-                                                    </button>
-                                                    <button type="button" class="wishlist-btn">
-                                                        <i class="icon icon-heart"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="product-detail">
+                                              @*   <div class="cart-concern">
+                                                    <div class="cart-button d-flex justify-content-between align-items-center">
+                                                        <button type="button"
+                                                                class="btn-wrap cart-link d-flex align-items-center">
+                                                            add to cart <i class="icon icon-arrow-io"></i>
+                                                        </button>
+                                                        <button type="button" class="view-btn tooltip d-flex">
+                                                            <i class="icon icon-screen-full"></i>
+                                                            <span class="tooltip-text">Quick view</span>
+                                                        </button>
+                                                        <button type="button" class="wishlist-btn">
+                                                            <i class="icon icon-heart"></i>
+                                                        </button>
+                                                    </div>
+                                                </div> *@
+                                            <div class="product-detail" asp-action="">
                                                 <h3 class="product-title fs-5 text-truncate">
-                                                    <a href="single-product.html">@item.ProductName</a>
+                                                    <a href="/Product/Details/@item.ProductId">@item.ProductName</a>
                                                 </h3>
                                                 <div class="item-price text-primary fs-6 mt-3">
                                                     @{

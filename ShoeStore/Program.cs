@@ -1,4 +1,4 @@
-using AspNetCoreHero.ToastNotification;
+﻿using AspNetCoreHero.ToastNotification;
 using Microsoft.EntityFrameworkCore;
 using ShoeStore.Models;
 using System.Configuration;
@@ -6,7 +6,6 @@ using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using AspNetCoreHero.ToastNotification.Notyf;
 using Microsoft.AspNetCore.Authentication.Cookies;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -19,13 +18,14 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
         options.UseSqlServer(builder.Configuration.GetConnectionString("ShoeStore"))
     );
 
-
-builder.Services.AddSingleton<HtmlEncoder>(HtmlEncoder.Create(allowedRanges:new [] {UnicodeRanges.All }));
+/*builder.Services.AddSession();
+*/builder.Services.AddSingleton<HtmlEncoder>(HtmlEncoder.Create(allowedRanges:new [] {UnicodeRanges.All }));
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
         options.LoginPath = "/dang-nhap.html";
         options.AccessDeniedPath = "/";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
     });
 builder.Services.AddNotyf(config =>
 {
@@ -36,7 +36,7 @@ builder.Services.AddNotyf(config =>
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    options.IdleTimeout = TimeSpan.FromSeconds(30000);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
@@ -55,8 +55,13 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
+
+
+/*app.UseAuthentication();
+app.UseAuthorization();*/
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
@@ -67,5 +72,6 @@ app.UseEndpoints(endpoints =>
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();

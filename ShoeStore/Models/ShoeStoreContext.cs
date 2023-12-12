@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using ShoeStore.ModelViews;
 
 namespace ShoeStore.Models
 {
@@ -292,5 +293,7 @@ namespace ShoeStore.Models
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        public DbSet<ShoeStore.ModelViews.LoginViewModel>? LoginViewModel { get; set; }
     }
 }

@@ -1,0 +1,41 @@
+﻿@model List<Order>
+@if(Model != null && Model.Count() > 0)
+{
+
+    <div class="table">
+        <table class="table table-bordered table-hover">
+            <tbody>
+                <tr>
+                    <th>ID</th>
+                    <th>Day Buy</th>
+                    <th>ShipDate</th>
+                    <th>Status</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+                @foreach(var item in Model)
+                {
+                    <tr>
+                        <td> @item.OrderId</td>
+                        <td> @item.OrderDate</td>
+                        <td>@item.TransactionStatus.Description</td>
+                        <td>@item.Paid </td>
+                        <td> 
+                            <a href="/">
+                                <span>
+                                    Order Detail
+                                </span>
+                            </a>
+                          </td>
+                    </tr>
+                 
+                }
+            </tbody>
+        </table>
+    </div>
+
+}
+else
+{
+    <p>Don't have oder yet !!</p>
+}

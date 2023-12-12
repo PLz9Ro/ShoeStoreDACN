@@ -1,0 +1,19 @@
+﻿@model List<ShoeStore.ModelViews.CartItem>
+@if (Model != null && Model.Count > 0)
+{
+    <li class="header-icon">
+        <a href="cart.html">
+            <i class="icon icon-shopping-cart"></i>
+            <sup><span class="text-xxs">@Model.Count</span></sup>
+        </a>
+    </li>
+}
+else
+{
+    <li class="header-icon">
+        <a href="cart.html">
+            <i class="icon icon-shopping-cart"></i>
+            <sup><span class="text-xxs">0</span></sup>
+        </a>
+    </li>
+}

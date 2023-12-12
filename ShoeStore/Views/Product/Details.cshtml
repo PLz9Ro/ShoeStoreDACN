@@ -1,0 +1,106 @@
+﻿@model ShoeStore.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Product> lsProducts = ViewBag.product;
+}
+<div class="main-content">
+    <div class="container card">
+        <div class="row">
+            <div class="col-6">
+                <div class="product-imgs">
+                    <div class="img-display">
+                        <div class="img-showcase">
+                            <img src="/images/products/@Model.Thumb" alt="@Model.Title" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="product-content">
+                    <h2 class="product-title-brand">@Model.ProductName</h2>
+                    <h3 style="font-size: 20px; padding-top: 20px">@Model.Title</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>5(21)</span>
+                    </div>
+                    <div class="product-price">
+                        <p style="font-size: 25px" class="last-price">
+                            Old Price: <span>@Model.Price</span>
+                        </p>
+                        <p style="font-size: 25px" class="new-price">
+                            New Price: <span>@Model.Discount</span>
+                        </p>
+                    </div>
+                    <div class="product-detail">
+                        <h2>about this Size:</h2>
+                        <hr />
+                        <ul class="d-flex btn-size">
+                            <li><button class="btn-light">39</button></li>
+                            <li><button class="btn-light">40</button></li>
+                            <li><button class="btn-light">40.5</button></li>
+                            <li><button class="btn-light">41</button></li>
+                            <li><button class="btn-light">41.5</button></li>
+                            <li><button class="btn-light">42</button></li>
+                        </ul>
+                        <hr />
+                    </div>
+                    <div class="purchase-info">
+                        <div class="px-3">
+                            <input name="txtsoLuong" id="txtsoLuong" type="number" min="0" value="1" />
+                        </div>
+                        <div class=" mb-2 ml-4" id="add-to-cart">
+                           @* <a href="#" class="add-to-cart btn btn-success btn-hover-bg-tint-amount btn-lg btn-primary py-4">Add To Cart</a>
+                             <input id="add-to-cart" class=" btn btn-success btn-hover-bg-tint-amount btn-lg btn-primary py-4" type="button" value="Add To Cart" /> *@
+                                <a class="btn btn-success btn-hover-bg-tint-amount btn-lg btn-primary py-4">
+                                Add To Cart
+                                </a>
+                            <input hidden asp-for="ProductId" id="ProductId" value="@Model.ProductId" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section id="featured-products" class="product-store padding-large">
+            <!-- ... (Các sản phẩm liên quan) ... -->
+        </section>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#add-to-cart").click(function () {
+                var productID = $('#ProductId').val();
+                var quantity = $('#txtsoLuong').val();
+
+                $.ajax({
+                    url: '/api/cart/add',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        productID: productID,
+                        amount: quantity
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            alert('Product added to cart successfully!');
+                            // Gọi hàm cập nhật số lượng sản phẩm trong giỏ hàng ở đây nếu cần
+                        } else {
+                            alert('Failed to add product to cart!');
+                        }
+                    },
+                    error: function (error) {
+                        alert('Error adding product to cart: ' + error.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+              
