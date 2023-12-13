@@ -5,7 +5,7 @@ namespace ShoeStore.Models
 {
     public partial class OrderDetail
     {
-        public int OrderDetailId { get; set; }
+        public int OrderDetailD { get; set; }
         public int? OrderId { get; set; }
         public int? ProductId { get; set; }
         public int? OrderNumber { get; set; }
@@ -13,6 +13,8 @@ namespace ShoeStore.Models
         public int? Discount { get; set; }
         public int? Total { get; set; }
         public DateTime? Shipdate { get; set; }
+        public DateTime? CreateDate { get; set; }
+        public int? Price { get; set; }
 
         public virtual Order? Order { get; set; }
     }

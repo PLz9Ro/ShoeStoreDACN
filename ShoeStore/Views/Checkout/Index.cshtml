@@ -1,0 +1,117 @@
+﻿@model ShoeStore.ModelViews.CheckOutVM
+@{
+    ViewData["Title" ]= "Check Out";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<ShoeStore.ModelViews.CartItem> Cart = ViewBag.Cart;
+}
+<div class="container my-5 d-flex">
+
+		<form asp-controller="Checkout" asp-action="Index" method="post">
+			<div class="row">
+				<div class="col-7">
+			<div class="card-details">
+				<h3 class="title">Thông Tin Nhận Hàng</h3>
+				
+					<input hidden asp-for="CustomerId"/>
+					<div class="col col--two">
+						<section class="section" data-select2-id="select2-data-213-ykcw">
+							<div class="section__header">
+								<div class="layout-flex">
+								</div>
+							</div>
+							<div class="section__content" data-select2-id="select2-data-212-2d3p">
+								<div class="fieldset">
+									<div class="field" data-bind-class="{'field--show-floating-label': billing.name}">
+										<div class="field__input-wrapper">
+											<span>Full Name</span>
+											<input asp-for="FullName" name="FullName" id="FullName" type="text" class="field__input" data-bind="billing.name" value="@Model.FullName">
+											<span asp-validation-for="FullName" class="text-danger"></span>
+										</div>
+
+									</div>
+
+									<div class="field " data-bind-class="{'field--show-floating-label': email}">
+										<div class="field__input-wrapper">
+											<span>
+												Email
+											</span>
+											<input asp-for="Email" name="Email" id="Email" type="Email" class="field__input" data-bind="email" value="@Model.Email">
+											<span asp-validation-for="Email" class="text-danger"></span>
+
+										</div>
+
+									</div>
+
+							
+									<div class="field " data-bind-class="{'field--show-floating-label': billing.phone}">
+										<div class="field__input-wrapper field__input-wrapper--connected" data-define="{phoneInput: new InputPhone(this)}">
+											<span>
+												Phone Number
+											</span>
+											<input asp-for="Phone" name="Phone" id="Phone" type="text" class="field__input" data-bind="billing.phone" value="@Model.Phone">
+											<span asp-validation-for="Phone" class="text-danger"></span>
+
+										</div>
+
+									</div>
+
+									<div class="field" data-bind-class="{'field--show-floating-label': billing.address}">
+										<div class="field__input-wrapper">
+											<span>Address</span>
+											<input asp-for="Address" name="Address" id="Address" type="text" class="field__input" data-bind="billing.address" value="@Model.Address">
+											<span asp-validation-for="Address" class="text-danger"></span>
+										</div>
+								</div>
+							</div>
+						</section>
+					</div>
+			</div>
+		</div>
+		<div class="col-1">
+
+		</div>
+		<div class="col-4">
+				<div class="row">
+
+					<div class="col-md-12">
+						<h1 class="mb-3">Order Detail</h1>
+						<ul class="list-group">
+							@foreach (var item in Cart)
+							{
+								<table>
+									<thead>
+										<tr>
+											<th><strong>Product</strong></th>
+											<th><strong>Amount</strong></th>
+											<th><strong>Total</strong></th>
+										</tr>
+									</thead>
+									<hr/>
+									<tbody>
+										<tr>
+											<td>
+												<span>@item.product.ProductName</span>
+											</td>
+											<td>
+												<span>@item.amount</span>
+											</td>
+											<td>
+												<span>@(item.amount * item.product.Price.Value) VNĐ</span>
+											</td>
+										</tr>
+
+									</tbody>
+								</table>
+						
+							}
+						</ul>
+
+					</div>
+				</div>
+				<input class="btn btn-primary "  value="Check Out"class="form-submit" type="submit" />
+		</div>
+			</div>
+		
+		</form>
+
+</div>

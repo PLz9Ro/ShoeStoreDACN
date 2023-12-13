@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using ShoeStore.ModelViews;
 
 namespace ShoeStore.Models
 {
@@ -122,6 +121,8 @@ namespace ShoeStore.Models
 
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
+                entity.Property(e => e.Address).HasMaxLength(250);
+
                 entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
 
                 entity.Property(e => e.OrderDate).HasColumnType("datetime");
@@ -132,24 +133,26 @@ namespace ShoeStore.Models
 
                 entity.Property(e => e.ShipDate).HasColumnType("datetime");
 
-                entity.Property(e => e.TransactionStatusId).HasColumnName("TransactionStatusID");
+                entity.Property(e => e.TransactStatusId).HasColumnName("TransactStatusID");
 
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.CustomerId)
                     .HasConstraintName("FK_Order_Customer");
 
-                entity.HasOne(d => d.TransactionStatus)
+                entity.HasOne(d => d.TransactStatus)
                     .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.TransactionStatusId)
+                    .HasForeignKey(d => d.TransactStatusId)
                     .HasConstraintName("FK_Order_TransactionStatus");
             });
 
             modelBuilder.Entity<OrderDetail>(entity =>
             {
+                entity.HasKey(e => e.OrderDetailD);
+
                 entity.ToTable("OrderDetail");
 
-                entity.Property(e => e.OrderDetailId).HasColumnName("OrderDetailID");
+                entity.Property(e => e.CreateDate).HasColumnType("datetime");
 
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
@@ -293,7 +296,5 @@ namespace ShoeStore.Models
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
-        public DbSet<ShoeStore.ModelViews.LoginViewModel>? LoginViewModel { get; set; }
     }
 }

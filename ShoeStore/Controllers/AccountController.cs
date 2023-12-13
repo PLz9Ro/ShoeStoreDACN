@@ -65,7 +65,7 @@ namespace ShoeStore.Controllers
                 if(userCus != null)
                 {
                     var lsOrder = _context.Orders
-                        .Include(x => x.TransactionStatus)
+                        .Include(x => x.TransactStatus)
                         .AsNoTracking()
                         .Where(x => x.CustomerId == userCus.CustomerId)
                         .OrderByDescending(x => x.OrderDate)
