@@ -5,73 +5,50 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-
-
 <div class="container">
-    <h2 class="text-center pt-3">Thong Tin Tai Khoan</h2>
+    <h2 class="text-center pt-3">Thông Tin Tài Khoản</h2>
 
     <div class="mt-2 mb-2 btn btn-success">
-        <a class=" text-white text-decoration-none" asp-action="Index">Back to List</a>
-
+        <a class="text-white text-decoration-none" asp-action="Index">Back to List</a>
     </div>
 
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EnCryPass)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EnCryPass)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Active)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Active)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FullName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FullName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastLogin)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastLogin)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreateDay)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreateDay)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Role)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Role.RoleId)
-        </dd>
-    </dl>
-</div>
-<div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th class="col-sm-2"><label asp-for="EnCryPass" class="control-label"></label></th>
+                    <td class="col-sm-10"><input asp-for="EnCryPass" class="form-control" readonly /></td>
+                </tr>
+                <tr>
+                    <th class="col-sm-2"><label asp-for="Phone" class="control-label"></label></th>
+                    <td class="col-sm-10"><input asp-for="Phone" class="form-control" readonly /></td>
+                </tr>
+                <tr>
+                    <th class="col-sm-2"><label asp-for="Email" class="control-label"></label></th>
+                    <td class="col-sm-10"><input asp-for="Email" class="form-control" readonly /></td>
+                </tr>
+                <tr>
+                    <th class="col-sm-2"><label asp-for="Active" class="control-label"></label></th>
+                    <td class="col-sm-10"><input asp-for="Active" class="form-control" readonly /></td>
+                </tr>
+                <tr>
+                    <th class="col-sm-2"><label asp-for="FullName" class="control-label"></label></th>
+                    <td class="col-sm-10"><input asp-for="FullName" class="form-control" readonly /></td>
+                </tr>
+                <tr>
+                    <th class="col-sm-2"><label asp-for="LastLogin" class="control-label"></label></th>
+                    <td class="col-sm-10"><input asp-for="LastLogin" class="form-control" readonly /></td>
+                </tr>
+                <tr>
+                    <th class="col-sm-2"><label asp-for="CreateDay" class="control-label"></label></th>
+                    <td class="col-sm-10"><input asp-for="CreateDay" class="form-control" readonly /></td>
+                </tr>
+                <tr>
+                    <th class="col-sm-2"><label asp-for="Role.RoleId" class="control-label"></label></th>
+                    <td class="col-sm-10"><input asp-for="Role.RoleId" class="form-control" readonly /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

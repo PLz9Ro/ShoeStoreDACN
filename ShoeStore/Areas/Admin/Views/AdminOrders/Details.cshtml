@@ -1,0 +1,121 @@
+﻿@model ShoeStore.Models.Order
+
+@{
+    ViewData["Title"] = "Details" + Model.OrderId;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<OrderDetail> detail = ViewBag.detail;
+}
+
+
+<div class="container-fluid" >
+    <h2 class="text-center pt-3 mt-5">Thong Tin Thanh Toán</h2>
+
+    <div class="mt-2 mb-2 btn btn-success">
+        <a class=" text-white text-decoration-none" asp-action="Index">Back to List</a>
+
+    </div>
+    <hr />
+    <div class="card p-4  shadow-sm bg-light">
+        <div class="container mt-5">
+            <div class="float-right">
+                <h2>INVOICE</h2>
+            </div>
+                <div class="inline-block">
+                    <img class="img-fluid" src="assets/images/logo/logo.png" alt="">
+                    <address class="p-1-10">
+                        <abbr class="text-dark" title="Phone">Address:</abbr>
+                        <span class="font-weight-semibold text-dark" @Model.Customer.FullName<</span>
+                        <span>@Model.Address</span><br>
+                        <abbr class="text-dark" title="Phone">Email:</abbr>
+                        <span>@Model.Customer.Email</span><br>
+                        <abbr class="text-dark" title="Phone">Phone:</abbr>
+                        <span>@Model.Customer.Phone</span>
+                    </address>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-8">
+                        
+                    </div>
+                    <div class="col-sm-4 my-5">
+                        <div class="m-t-80">
+                            <div class="text-dark text-uppercase d-inline-block">
+                            <span class="font-weight-semibold text-dark">Order ID : @Model.OrderId</span>
+                            </div>
+                           
+                        </div>
+                        <div class="text-dark text-uppercase d-inline-block">
+                            <span class="font-weight-semibold text-dark">Order Date : @Model.OrderDate</span>
+                        </div>
+                        <div class="@Model.OrderDate"></div>
+                        <div class="text-dark text-uppercase d-inline-block">
+                            <span class="font-weight-semibold text-dark">Ship Date : @Model.ShipDate</span>
+                        </div>
+                        <div class="@Model.OrderDate"></div>
+                    <div class="text-dark text-uppercase d-inline-block">
+                        <span class="font-weight-semibold text-dark">Transaction Status : @Model.TransactStatus.TransactStatusId</span>
+                    </div>
+                    <div class="@Model.TransactStatusId"></div>
+                    </div>
+                </div>
+                <div row>
+
+                    <div class="m-t-20">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Items</th>
+                                        <th>Image</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (detail != null)
+                                    {
+                                        @foreach (var item in detail)
+                                        {
+                                        string url = $"/{@item.Product.Alias}-{@item.Product.ProductId}.html";
+                                        int i = 1;
+                                            <tr>
+                                                <th>@i</th>
+                                                <td><a target="_blank" href="@Url">@item.Product.ProductName</a></td>
+                                                <td>
+                                                    <img src="~/images/products/@item.Product.Thumb" width="60" height="60" alt="@item.Product.Title" />
+                                                </td>
+                                                <td>@item.Quantity</td>
+                                                <td>@item.Price</td>
+                                                <td>@item.Total</td>
+                                            </tr>
+                                            i++;
+                                        }
+                                      
+                                    }
+                                
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row m-t-30 1h-1-8">
+                            <div class="col-sm-12">
+                                <div class="float-right text-right">
+
+                                    <h3><span class="font-weight-semibold text-dark">Total : </span> @Model.TotalMoney</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            
+        </div>
+    </div>
+@*     
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.OrderId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+ *@

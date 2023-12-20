@@ -6,128 +6,104 @@
 }
 
 <div class="container-fluid">
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShortDesciption)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ShortDesciption)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Discount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Discount)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Thumb)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Thumb)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductImage)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductImage)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateCreated)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateModified)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateModified)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BestSellers)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BestSellers)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HomeFlag)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HomeFlag)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Active)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Active)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Tags)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Tags)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Alias)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Alias)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MetaDesc)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MetaDesc)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MetaKey)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MetaKey)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UnitsStock)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UnitsStock)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.CategoryId)
-        </dd>
-    </dl>
-    
+
+    <h2 class="mt-4 text-center">Chỉnh Sửa Page: @Model.ProductName</h2>
+
+    <div class="mt-2 mb-2 btn btn-success">
+        <a class=" text-white text-decoration-none" asp-action="Index">Back to List</a>
+
+    </div>
     <form asp-action="Delete">
         <input type="hidden" asp-for="ProductId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger" /> 
+
     </form>
+    <hr />
+
+    <table class="table table-border">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.ProductId)</th>
+                    <td>@Html.DisplayFor(model => model.ProductId)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.ProductName)</th>
+                    <td>@Html.DisplayFor(model => model.ProductName)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Thumb)</th>
+                    <td><img src="~/images/products/@Model.Thumb" width="100" height="100" alt="@Model.Title" /></td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.ShortDesciption)</th>
+                    <td>@Html.DisplayFor(model => model.ShortDesciption)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Description)</th>
+                    <td>@Html.DisplayFor(model => model.Description)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Price)</th>
+                    <td>@Html.DisplayFor(model => model.Price)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Discount)</th>
+                    <td>@Html.DisplayFor(model => model.Discount)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.ProductImage)</th>
+                    <td>@Html.DisplayFor(model => model.ProductImage)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.DateCreated)</th>
+                    <td>@Html.DisplayFor(model => model.DateCreated)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.DateModified)</th>
+                    <td>@Html.DisplayFor(model => model.DateModified)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.BestSellers)</th>
+                    <td>@Html.DisplayFor(model => model.BestSellers)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.HomeFlag)</th>
+                    <td>@Html.DisplayFor(model => model.HomeFlag)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Active)</th>
+                    <td>@Html.DisplayFor(model => model.Active)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Tags)</th>
+                    <td>@Html.DisplayFor(model => model.Tags)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Title)</th>
+                    <td>@Html.DisplayFor(model => model.Title)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Alias)</th>
+                    <td>@Html.DisplayFor(model => model.Alias)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.MetaDesc)</th>
+                    <td>@Html.DisplayFor(model => model.MetaDesc)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.MetaKey)</th>
+                    <td>@Html.DisplayFor(model => model.MetaKey)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.UnitsStock)</th>
+                    <td>@Html.DisplayFor(model => model.UnitsStock)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Category)</th>
+                    <td>@Html.DisplayFor(model => model.Category.CategoryId)</td>
+                </tr>
+            </tbody>
+        </table>
+
 </div>

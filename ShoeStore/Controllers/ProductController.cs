@@ -83,5 +83,15 @@ namespace ShoeStore.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+
+        [HttpGet]
+        public IActionResult SearchProducts(string searchText)
+        {
+            var products = _context.Products
+                .Where(p => p.ProductName.Contains(searchText))
+                .ToList();
+
+            return Json(products);
+        }
     }
 }

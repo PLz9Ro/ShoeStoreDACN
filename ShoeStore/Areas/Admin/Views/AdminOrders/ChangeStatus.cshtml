@@ -1,0 +1,87 @@
+﻿@model ShoeStore.Models.Order
+
+@{
+    ViewData["Title"] = "ChangeStatus";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="modal-body">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">THÔNG TIN ĐƠN HÀNG #@Model.OrderId</h4>
+            <div class="table-responsive">
+                <table class="product-info-table m-t-20">
+                    <tbody>
+                        <tr>
+                            <td>ID:</td>
+                            <td class="text-dark font-weight-semibold">#@Model.OrderId</td>
+                        </tr>
+                        <tr>
+                            <td>Ngày mua hàng:</td>
+                            <td>Model.OrderDate</td>
+                        </tr>
+                        <tr>
+                            <td>Khách hàng:</td>
+                            <td>@Model.Customer.FullName</td>
+                        </tr>
+                        <tr>
+                            <td>Số điện thoại:</td>
+                            <td>Model.Customer.Phone</td>
+                        </tr>
+                        <tr>
+                            <td>Địa chỉ:</td>
+                            <td>@Model.Customer.Address</td>
+                        </tr>
+                        <tr>
+                            <td>TỔNG TIỀN:</td>
+                            <td>@Model.TotalMoney</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form asp-area="Admin" asp-controller="AdminOrders" asp-action="ChangeStatus" asp-route-id="@Model.OrderId" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="OrderId" />
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Chọn trạng thái đơn hàng</label>
+                            <select class="form-control" asp-for="TransactStatusId" asp-items="ViewBag.TrangThai">
+                                <option value="0" disabled selected>Chọn trạng thái đơn hàng</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Đã thanh toán</label>
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="Paid" class="form-control" />
+                        </label>
+                        <span asp-validation-for="Paid" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Đơn hàng bị hủy</label>
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="Deleted" class="form-control" />
+                        </label>
+                        <span asp-validation-for="Deleted" class="text-danger"></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">Save Changes  </button>
+            </form>
+        </div>
+    </div>
+</div>

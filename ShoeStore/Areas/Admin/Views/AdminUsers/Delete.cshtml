@@ -5,72 +5,56 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-
-
-
-<div class="container">
-    <h2 class="text-center pt-3">Xoa Tai Khoan</h2>
+<div class="container-fluid">
+    <h2 class="text-center pt-3 mt-5">Xóa Tài Khoản</h2>
 
     <div class="mt-2 mb-2 btn btn-success">
-        <a class=" text-white text-decoration-none" asp-action="Index">Back to List</a>
-
+        <a class="text-white text-decoration-none" asp-action="Index">Back to List</a>
     </div>
-  
+
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Active)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Active)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FullName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FullName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastLogin)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastLogin)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreateDay)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreateDay)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Role)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Role.RoleId)
-        </dd>
-    </dl>
-    
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Password)</th>
+                    <td>@Html.DisplayFor(model => model.Password)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Phone)</th>
+                    <td>@Html.DisplayFor(model => model.Phone)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Email)</th>
+                    <td>@Html.DisplayFor(model => model.Email)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Active)</th>
+                    <td>@Html.DisplayFor(model => model.Active)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.FullName)</th>
+                    <td>@Html.DisplayFor(model => model.FullName)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.LastLogin)</th>
+                    <td>@Html.DisplayFor(model => model.LastLogin)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.CreateDay)</th>
+                    <td>@Html.DisplayFor(model => model.CreateDay)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Role.RoleId)</th>
+                    <td>@Html.DisplayFor(model => model.Role.RoleId)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-
         <div>
             <input type="submit" value="Delete" class="btn btn-danger" />
         </div>

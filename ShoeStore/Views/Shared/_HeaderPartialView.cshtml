@@ -147,3 +147,57 @@
         </div>
     </nav>
 </div>
+@section Scripts {
+    <script>
+        $(function () {
+            function loadHeaderCart() {
+                $("#numberCart").load("/AjaxContent/NumberCart");
+            }
+            $(".update-cart").click(function () {
+                var productid = $(this).prev("input.pdate-cart").data("productid");
+                var amount = parseInt($(this).prev("input.pdate-cart").val());
+                console.log("id" + productid);
+                console.log("id" + amount);
+                $.ajax({
+                    url: "/api/cart/update",
+                    type: "POST",
+                    dataType: "JSON",
+                    data: {
+                        productID: productid,
+                        amount: amount
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            loadHeaderCart();
+                            window.location = 'cart.html';
+                        }
+                    },
+                    error: function (rs) {
+                        alert("Cập nhật Cart Error!");
+                    }
+                });
+            });
+            $("#Removecart").click(function () {
+                var productid = $(this).attr("data-productid");
+                $.ajax({
+                    url: "/api/cart/remove",
+                    type: "POST",
+                    dataType: "JSON",
+                    data: { productID: productid },
+                    success: function (result) {
+                        if (result.success) {
+                            loadHeaderCart();//Reload lại giỏ hàng
+                            window.location = 'cart.html';
+                        }
+                    },
+                    error: function (rs) {
+                        alert("Cập nhật Cart Error!");
+                    }
+                });
+
+            });
+
+        });
+
+    </script>
+}

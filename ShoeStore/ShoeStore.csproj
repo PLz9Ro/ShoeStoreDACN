@@ -23,6 +23,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration.AzureAppConfiguration" Version="6.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="PagedList.Core.Mvc" Version="3.0.0" />
   </ItemGroup>
 
@@ -30,6 +31,58 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\images\pages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\FEAssets\css\main.css.map" />
+    <None Include="wwwroot\FEAssets\fonts\material-icon\fonts\Material-Design-Iconic-Font.svg" />
+    <None Include="wwwroot\FEAssets\fonts\material-icon\fonts\Material-Design-Iconic-Font.woff2" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-300.svg" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-300.woff2" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-300italic.svg" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-300italic.woff2" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-500.svg" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-500.woff2" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-500italic.svg" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-500italic.woff2" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-600.svg" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-600.woff2" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-700.svg" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-700.woff2" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-700italic.svg" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-700italic.woff2" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-800.svg" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-800.woff2" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-800italic.svg" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-800italic.woff2" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-900.svg" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-900.woff2" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-italic.svg" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-italic.woff2" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-regular.svg" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\poppins-v5-latin-regular.woff2" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\roboto-condensed-v16-latin-700.svg" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\roboto-condensed-v16-latin-700.woff2" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\roboto-condensed-v16-latin-700italic.svg" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\roboto-condensed-v16-latin-700italic.woff2" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\roboto-condensed-v16-latin-italic.svg" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\roboto-condensed-v16-latin-italic.woff2" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\roboto-condensed-v16-latin-regular.svg" />
+    <None Include="wwwroot\FEAssets\fonts\poppins\roboto-condensed-v16-latin-regular.woff2" />
+    <None Include="wwwroot\FEAssets\icomoon\fonts\icomoon.svg" />
+    <None Include="wwwroot\FEAssets\images\curly-divider.svg" />
+    <None Include="wwwroot\FEAssets\images\ns-arrow-right.svg" />
+    <None Include="wwwroot\FEAssets\js\backtotop.js" />
+    <None Include="wwwroot\FEAssets\js\detail.js" />
+    <None Include="wwwroot\FEAssets\js\jquery-1.11.0.min.js" />
+    <None Include="wwwroot\FEAssets\js\modernizr.js" />
+    <None Include="wwwroot\FEAssets\js\plugins.js" />
+    <None Include="wwwroot\FEAssets\js\script.js" />
+    <None Include="wwwroot\FEAssets\scss\css\footer.css.map" />
+    <None Include="wwwroot\FEAssets\scss\css\header.css.map" />
+    <None Include="wwwroot\FEAssets\scss\main.scss" />
+    <None Include="wwwroot\FEAssets\scss\theme\footer.scss" />
+    <None Include="wwwroot\FEAssets\scss\theme\header.scss" />
   </ItemGroup>
 
 </Project>

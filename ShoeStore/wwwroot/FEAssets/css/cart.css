@@ -1,4 +1,3 @@
-@import url('cart.css');
 tr td.Price,td.Quantity,td.actions, .col-md-9 {
         font-size: 30px;
         color: black;
@@ -8,13 +7,25 @@ tr td.Price,td.Quantity,td.actions, .col-md-9 {
     color: black;
     font-size: 30px;
 }
-
+.go-shop{
+    color: black !important;
+}
 .go-shop:hover{
-    color: paleturquoise !important;
+    color: gray !important;
 }
 
 .noti-cart{
-    font-size: 30px;
-    font-weight: 500;
+    font-size: 25px;
+    font-weight: 200;
     color:black
+}
+
+.btn-primary{
+    background-color: black !important;
+}
+.btn-primary:hover{
+    background-color: gray !important;
+}
+.cart-product .row{
+    cursor: pointer;
 }

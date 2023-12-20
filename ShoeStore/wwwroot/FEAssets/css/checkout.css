@@ -46,7 +46,7 @@
 }
 
 .payment-form .title {
-  font-size: 1em;
+  font-size: 20px !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   margin-bottom: 0.8em;
   font-weight: 600;
@@ -92,6 +92,9 @@
 
 .payment-form .card-details {
   padding: 25px 25px 15px;
+}
+.card-details .title {
+  font-size: 16px !important;
 }
 
 .payment-form .card-details label {
@@ -170,5 +173,104 @@
   float: left;
   width: 100%;
   box-sizing: border-box;
-  padding: 0.4em;
+  padding: 0.4em 0;
+}
+.img-checkout {
+  width: 100px;
+  height: 100px;
+}
+.field__label {
+  font-size: 18px !important;
+}
+/* .h-100 {
+  height: 100% !important;
+} */
+.btn-block {
+  background-color: white !important;
+  color: black !important;
+  border: none;
+}
+.btn-block:hover {
+  background-color: gray !important ;
+  color: white;
+}
+.bg-primary {
+  background-color: #a5a5a5 !important;
+}
+h3 {
+  margin: 25px 0 0 0;
+  text-transform: capitalize;
+}
+.small {
+  color: black;
+}
+.back-cart {
+  margin: auto 0;
+  color: black !important;
+}
+.back-cart:hover {
+  color: gray !important;
+}
+.fa-money-check-dollar {
+  color: green;
+}
+.fa-truck-fast {
+  color: burlywood;
+}
+.col5-customize {
+  position: sticky;
+  top: 25px;
+}
+@media (min-width: 1025px) {
+  .h-custom {
+    height: 100vh !important;
+  }
+}
+.modal-content {
+  width: 800px;
+  right: 120px;
+  top: 20px;
+}
+#staticBackdropLabel {
+  margin-left: 165px;
+  /* color: #0071c4; */
+  font-size: 18px;
+  font-weight: 600;
+  color: #3b99e0;
+}
+.modal-body {
+  background-color: #f3f3f3;
+}
+.modal-header {
+  background-color: #e1e1e1;
+}
+.info-customer p {
+  font-size: 15px;
+  margin: 0;
+  padding-bottom: 5px;
+}
+.title-invoice {
+  text-align: center;
+  font-size: 14px;
+  background-color: #e1e1e1;
+  padding: 10px;
+  font-weight: 600;
+  color: black;
+}
+.btn-ad {
+  background-color: #333;
+  color: white;
+  font-size: 13px;
+}
+.btn-ad:hover {
+  background-color: gray;
+}
+.title-noti {
+  font-weight: 600;
+  font-size: 14px;
+  font-style: oblique;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.accordion p {
+  font-size: 14px;
 }

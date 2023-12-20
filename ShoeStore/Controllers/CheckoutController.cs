@@ -63,22 +63,33 @@ namespace ShoeStore.Controllers
                 model.Phone = customer.Phone;
                 model.Address = customer.Address;
 
+                customer.City = checkout.City;
+                customer.District = checkout.District;
+                customer.Ward = checkout.Ward;
+
+
                 _context.Update(customer);
                 _context.SaveChanges();
             }
             try
             {
+                var customer = _context.Customers.SingleOrDefault(x => x.CustomerId == model.CustomerId);
+
                 if (ModelState.IsValid)
-                {
-                    Order order = new Order();
-                    order.CustomerId = model.CustomerId;
-                    order.Address = model.Address;
+                    {
+                        Order order = new Order();
+                        order.CustomerId = model.CustomerId;
+                        order.Address = model.Address;
+                        order.City = customer.City;
+                        order.District = customer.District;
+                        order.Ward = customer.Ward;
 
                     order.OrderDate = DateTime.Now;
                     order.TransactStatusId = 1; 
                     order.Deleted = false;
                     order.Paid = false;
 
+                    order.Note = model.Note;
                     order.TotalMoney = Convert.ToInt32(cart.Sum(x => x.TotalMoney));
                     _context.Add(order);
                     _context.SaveChanges();

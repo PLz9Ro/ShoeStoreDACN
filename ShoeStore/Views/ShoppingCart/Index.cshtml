@@ -36,9 +36,9 @@
 
                                         foreach (var item in Model)
                                         {
-                                            <tr class="cart-product ">
-                                                <td data-th="Product">
-                                                    <div class="row">
+                                            <tr class="cart-product align-items-center justify-content-center">
+                                                <td data-th="Product ">
+                                                    <div class="row ">
                                                         <div class="col-md-9 text-left ">
                                                             <h4>@item.product.ProductName</h4>
                                                             <p class="font-weight-light">@item.product.Title</p>
@@ -47,18 +47,18 @@
                                                 </td>
                                                 <td data-th="Product">
                                                 <div class="row">
-                                                    <div class="col-md-3 text-left">
+                                                        <div class="col-md-3 text-left " style="height: 130px; width: 150px; object-fit: cover;">
                                                        <img src="~/images/products/@item.product.Thumb"
                                                              alt="@item.product.Title"
-                                                                 class="d-none d-md-block rounded mb-2 shadow" style="height: 60px; width: 100%; object-fit: cover;" />
+                                                                 class="d-none d-md-block rounded mb-2 shadow" style="height: 100%; width: 100%; object-fit: cover;" />
                                                         </div>
                                                     
                                                 </div>
                                                 </td>
-                                                <td class="Price" data-th="Price">@item.product.Price.Value.ToString("#,##")VND</td>
-                                                <td class="product-quantity ">
-                                                    <div class="d-flex align-items-center text-align-center">
-                                                        <input data-productid="@item.product.ProductId" type="number" data-price="@item.product.Price" class="pdate-cart form-control form-control-lg" min="1" value="@item.amount">
+                                                <td class="Price pb-1" data-th="Price">@item.product.Price.Value.ToString("#,##")VND</td>
+                                                <td class="product-quantity">
+                                                    <div class="d-flex align-items-center text-align-center  mt-4">
+                                                        <input data-productid="@item.product.ProductId" type="number" data-price="@item.product.Price" class="mt-1 pdate-cart form-control form-control-lg" min="1" value="@item.amount">
                                                         <i class="fas fa-sync update-cart"></i>
 
                                                     </div>
@@ -67,7 +67,7 @@
                                                 <td class="actions" data-th="">
                                                     <div class="text-right">
                                                         <span>
-                                                            <input data-productid="@item.product.ProductId"  class="btn btn-lg" id="Removecart" value="X"/>
+                                                            <input data-productid="@item.product.ProductId" class="btn btn-lg  mt-4" id="Removecart" value="X" />
                                                         </span>
                                                     </div>
                                                 </td>

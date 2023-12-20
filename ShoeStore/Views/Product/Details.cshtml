@@ -5,14 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<Product> lsProducts = ViewBag.product;
 }
-<div class="main-content">
+<div class="main-content mt-5">
     <div class="container card">
         <div class="row">
             <div class="col-6">
                 <div class="product-imgs">
                     <div class="img-display">
                         <div class="img-showcase">
-                            <img src="/images/products/@Model.Thumb" alt="@Model.Title" />
+                            <img src="/images/products/@Model.Thumb" alt="@Model.Title" style="width: 100%; height: 100%; object-fit: cover;" />
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                     </div>
                     <div class="purchase-info">
                         <div class="px-3">
-                            <input name="txtsoLuong" id="txtsoLuong" type="number" min="0" value="1" />
+                            <input name="txtsoLuong" id="txtsoLuong" type="number" class="control-label form-control" min="0" value="1" />
                         </div>
                         <div class=" mb-2 ml-4" id="add-to-cart">
                            @* <a href="#" class="add-to-cart btn btn-success btn-hover-bg-tint-amount btn-lg btn-primary py-4">Add To Cart</a>
@@ -88,10 +88,10 @@
                     },
                     success: function (response) {
                         if (response.success) {
-                            alert('Product added to cart successfully!');
+                            _notifyService.Success("Add Product Success");
                             // Gọi hàm cập nhật số lượng sản phẩm trong giỏ hàng ở đây nếu cần
                         } else {
-                            alert('Failed to add product to cart!');
+                            alert('Failed    to add product to cart!');
                         }
                     },
                     error: function (error) {

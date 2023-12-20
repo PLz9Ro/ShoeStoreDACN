@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ShoeStore.Models.Product>
+
+<div class="swiper product-swiper overflow-hidden">
+
+    <div class="swiper-wrapper">
+       
+        @if (Model != null && Model.Any())
+        {
+            foreach (var product in Model)
+            {
+                <div class="swiper-slide">
+                    <div class="product-item">
+                        <!-- Hiển thị thông tin sản phẩm -->
+                        <div class="image-holder">
+                            <img src="~/images/products/@product.Thumb" alt="@product.Title" style=" object-fit: contain;"  class="product-image" />
+                        </div>
+                        @* <div class="cart-concern">
+                            <!-- Các nút thêm vào giỏ hàng, xem nhanh, wishlist -->
+                            <!-- Ví dụ: -->
+                            <div class="cart-button d-flex justify-content-between align-items-center">
+                                <button type="button" class="btn-wrap cart-link d-flex align-items-center">
+                                    add to cart <i class="icon icon-arrow-io"></i>
+                                </button>
+                                <button type="button" class="view-btn tooltip d-flex">
+                                    <i class="icon icon-screen-full"></i>
+                                    <span class="tooltip-text">Quick view</span>
+                                </button>
+                                <button type="button" class="wishlist-btn">
+                                    <i class="icon icon-heart"></i>
+                                </button>
+                            </div>
+                        </div> *@
+                        <!-- Chi tiết sản phẩm -->
+                        <div class="product-detail">
+                            <h3 class="product-title">
+                                <a href="single-product.html">@product.ProductName</a>
+                            </h3>
+                            <span class="item-price text-primary">@product.Price</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <!-- Hiển thị thông báo nếu không có sản phẩm -->
+            <div class="swiper-slide">
+                <p>No products available</p>
+            </div>
+        }
+    </div>
+</div>

@@ -72,9 +72,13 @@ namespace ShoeStore.Models
 
                 entity.Property(e => e.Birthday).HasColumnType("datetime");
 
+                entity.Property(e => e.City).HasMaxLength(50);
+
                 entity.Property(e => e.ConfirmPassword).HasMaxLength(50);
 
                 entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.District).HasMaxLength(50);
 
                 entity.Property(e => e.Email).HasMaxLength(250);
 
@@ -93,6 +97,8 @@ namespace ShoeStore.Models
                 entity.Property(e => e.Salt)
                     .HasMaxLength(10)
                     .IsFixedLength();
+
+                entity.Property(e => e.Ward).HasMaxLength(50);
 
                 entity.HasOne(d => d.Location)
                     .WithMany(p => p.Customers)
@@ -123,7 +129,11 @@ namespace ShoeStore.Models
 
                 entity.Property(e => e.Address).HasMaxLength(250);
 
+                entity.Property(e => e.City).HasMaxLength(50);
+
                 entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+
+                entity.Property(e => e.District).HasMaxLength(50);
 
                 entity.Property(e => e.OrderDate).HasColumnType("datetime");
 
@@ -134,6 +144,8 @@ namespace ShoeStore.Models
                 entity.Property(e => e.ShipDate).HasColumnType("datetime");
 
                 entity.Property(e => e.TransactStatusId).HasColumnName("TransactStatusID");
+
+                entity.Property(e => e.Ward).HasMaxLength(50);
 
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Orders)
@@ -164,6 +176,11 @@ namespace ShoeStore.Models
                     .WithMany(p => p.OrderDetails)
                     .HasForeignKey(d => d.OrderId)
                     .HasConstraintName("FK_OrderDetail_Order");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.OrderDetails)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_OrderDetail_Product");
             });
 
             modelBuilder.Entity<Page>(entity =>

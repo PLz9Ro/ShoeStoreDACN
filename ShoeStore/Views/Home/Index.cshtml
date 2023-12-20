@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<ShoeStore.Models.Product>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -83,161 +85,7 @@
                 </a>
             </div>
         </div>
-        <div class="swiper product-swiper overflow-hidden">
-            <!-- Nike Product -->
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="product-item">
-                        <div class="image-holder">
-                            <img src="images/af1.jpg" alt="Books" class="product-image" />
-                        </div>
-                        <div class="cart-concern">
-                            <div class="cart-button d-flex justify-content-between align-items-center">
-                                <button type="button"
-                                        class="btn-wrap cart-link d-flex align-items-center">
-                                    add to cart <i class="icon icon-arrow-io"></i>
-                                </button>
-                                <button type="button" class="view-btn tooltip d-flex">
-                                    <i class="icon icon-screen-full"></i>
-                                    <span class="tooltip-text">Quick view</span>
-                                </button>
-                                <button type="button" class="wishlist-btn">
-                                    <i class="icon icon-heart"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="product-detail">
-                            <h3 class="product-title">
-                                <a href="single-product.html">Nike Airforce 1</a>
-                            </h3>
-                            <span class="item-price text-primary">$40.00</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="product-item">
-                        <div class="image-holder">
-                            <img src="images/airmax90.jpeg"
-                                 alt="Books"
-                                 class="product-image" />
-                        </div>
-                        <div class="cart-concern">
-                            <div class="cart-button d-flex justify-content-between align-items-center">
-                                <button type="button"
-                                        class="btn-wrap cart-link d-flex align-items-center">
-                                    add to cart <i class="icon icon-arrow-io"></i>
-                                </button>
-                                <button type="button" class="view-btn tooltip d-flex">
-                                    <i class="icon icon-screen-full"></i>
-                                    <span class="tooltip-text">Quick view</span>
-                                </button>
-                                <button type="button" class="wishlist-btn">
-                                    <i class="icon icon-heart"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="product-detail">
-                            <h3 class="product-title">
-                                <a href="single-product.html">Nike AirMax 90</a>
-                            </h3>
-                            <span class="item-price text-primary">$38.00</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="product-item">
-                        <div class="image-holder">
-                            <img src="images/airzoom.jpeg"
-                                 alt="Books"
-                                 class="product-image" />
-                        </div>
-                        <div class="cart-concern">
-                            <div class="cart-button d-flex justify-content-between align-items-center">
-                                <button type="button"
-                                        class="btn-wrap cart-link d-flex align-items-center">
-                                    add to cart <i class="icon icon-arrow-io"></i>
-                                </button>
-                                <button type="button" class="view-btn tooltip d-flex">
-                                    <i class="icon icon-screen-full"></i>
-                                    <span class="tooltip-text">Quick view</span>
-                                </button>
-                                <button type="button" class="wishlist-btn">
-                                    <i class="icon icon-heart"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="product-detail">
-                            <h3 class="product-title">
-                                <a href="single-product.html">Nike AirZome</a>
-                            </h3>
-                            <span class="item-price text-primary">$44.00</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="product-item">
-                        <div class="image-holder">
-                            <img src="images/Nike SB allayoop.jpeg"
-                                 alt="Books"
-                                 class="product-image" />
-                        </div>
-                        <div class="cart-concern">
-                            <div class="cart-button d-flex justify-content-between align-items-center">
-                                <button type="button"
-                                        class="btn-wrap cart-link d-flex align-items-center">
-                                    add to cart <i class="icon icon-arrow-io"></i>
-                                </button>
-                                <button type="button" class="view-btn tooltip d-flex">
-                                    <i class="icon icon-screen-full"></i>
-                                    <span class="tooltip-text">Quick view</span>
-                                </button>
-                                <button type="button" class="wishlist-btn">
-                                    <i class="icon icon-heart"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="product-detail">
-                            <h3 class="product-title">
-                                <a href="single-product.html">Long belly grey pant</a>
-                            </h3>
-                            <span class="item-price text-primary">$33.00</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="product-item">
-                        <div class="image-holder">
-                            <img src="images/Nike SB allayoop.jpeg"
-                                 alt="Books"
-                                 class="product-image" />
-                        </div>
-                        <div class="cart-concern">
-                            <div class="cart-button d-flex justify-content-between align-items-center">
-                                <button type="button"
-                                        class="btn-wrap cart-link d-flex align-items-center">
-                                    add to cart <i class="icon icon-arrow-io"></i>
-                                </button>
-                                <button type="button" class="view-btn tooltip d-flex">
-                                    <i class="icon icon-screen-full"></i>
-                                    <span class="tooltip-text">Quick view</span>
-                                </button>
-                                <button type="button" class="wishlist-btn">
-                                    <i class="icon icon-heart"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="product-detail">
-                            <h3 class="product-title">
-                                <a href="single-product.html">Long belly grey pant</a>
-                            </h3>
-                            <span class="item-price text-primary">$33.00</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--  -->
-        </div>
-        <div class="swiper-pagination"></div>
+            @await Html.PartialAsync("_NewProductPartialView")
     </div>
 </section>
 
@@ -1223,7 +1071,7 @@
                                  alt="Books"
                                  class="product-image" />
                         </div>
-                        <div class="cart-concern">
+                        <div class="cart-concern 
                             <div class="cart-button d-flex justify-content-between align-items-center">
                                 <button type="button"
                                         class="btn-wrap cart-link d-flex align-items-center">

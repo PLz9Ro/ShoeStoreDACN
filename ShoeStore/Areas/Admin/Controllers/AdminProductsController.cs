@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +16,11 @@ namespace ShoeStore.Areas.Admin.Controllers
     public class AdminProductsController : Controller
     {
         private readonly ShoeStoreContext _context;
-
-        public AdminProductsController(ShoeStoreContext context)
+        public INotyfService _notifyService { get; }
+        public AdminProductsController(ShoeStoreContext context , INotyfService notyfService)
         {
             _context = context;
+            _notifyService = notyfService;
         }
 
         // GET: Admin/AdminProducts
@@ -109,6 +111,7 @@ namespace ShoeStore.Areas.Admin.Controllers
                 product.DateCreated = DateTime.Now;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
+                _notifyService.Success("Create Success");
                 return RedirectToAction(nameof(Index));
             }
             ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", product.CategoryId);
@@ -164,6 +167,8 @@ namespace ShoeStore.Areas.Admin.Controllers
                     product.DateCreated = DateTime.Now;
                     _context.Update(product);
                     await _context.SaveChangesAsync();
+                    _notifyService.Success("Change Success");
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -209,6 +214,8 @@ namespace ShoeStore.Areas.Admin.Controllers
             if (_context.Products == null)
             {
                 return Problem("Entity set 'ShoeStoreContext.Products'  is null.");
+                _notifyService.Warning("Delete Fail");
+
             }
             var product = await _context.Products.FindAsync(id);
             if (product != null)
@@ -217,6 +224,7 @@ namespace ShoeStore.Areas.Admin.Controllers
             }
             
             await _context.SaveChangesAsync();
+            _notifyService.Success("Delete Success");
             return RedirectToAction(nameof(Index));
         }
 

@@ -7,15 +7,17 @@ namespace ShoeStore.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ShoeStoreContext _context;
+        public HomeController(ILogger<HomeController> logger , ShoeStoreContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var products = _context.Products.ToList();
+            return View(products);
         }
 
         public IActionResult Privacy()
@@ -32,6 +34,11 @@ namespace ShoeStore.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public ActionResult _NewProductPartialView()
+        {
+            var items = _context.Products.OrderByDescending(p => p.DateCreated).ToList();
+            return PartialView(items);
         }
     }
 }

@@ -98,9 +98,10 @@
                                     {
                                         string url = $"/{@item.Alias}-{@item.ProductId}.html";
                                         <div class="product-item col-lg-3 col-md-6 col-sm-6">
-                                            <div class="image-holder" >
+                                            <div class="image-holder " >
                                                 <a asp-route="ProductDetails" asp-route-id="@item.ProductId" asp-route-alias="@item.Alias">
                                                     <img src="~/images/products/@item.Thumb"
+                                                         style="width: 100%; object-fit: contain;"
                                                      alt="@item.Title"
                                                      class="product-image"
                                                      style="height:300px; object-fit" />
@@ -123,7 +124,7 @@
                                                 </div> *@
                                             <div class="product-detail" asp-action="">
                                                 <h3 class="product-title fs-5 text-truncate">
-                                                    <a href="/Product/Details/@item.ProductId">@item.ProductName</a>
+                                                    <a href="@url">@item.ProductName</a>
                                                 </h3>
                                                 <div class="item-price text-primary fs-6 mt-3">
                                                     @{

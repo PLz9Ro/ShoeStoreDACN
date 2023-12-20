@@ -266,7 +266,7 @@ ul.btn-size {
   margin-top: 15px;
 }
 .card-wrapper {
-  margin-top: -160px;
+  margin-top: -120px;
 }
 .size-product {
   font-size: 16px !important ;
@@ -276,5 +276,5 @@ ul.btn-size {
   display: flex;
   justify-content: flex-start;
   padding-top: 100px;
-  margin-left: 400px;
+  margin-left: 320px;
 }
