@@ -49,7 +49,8 @@ namespace ShoeStore.Areas.Admin.Controllers
                 ViewBag.CurrentCateID = CatID;
                 ViewBag.CurrentPage = pageNumber;
                 ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", CatID);
-                return View(models);
+                ViewData["Size"] = new SelectList(_context.Sizes, "SizeId", "SizeName");
+            return View(models);
             }
         public IActionResult Filtter(int CategoryID = 0)
         {
@@ -83,6 +84,8 @@ namespace ShoeStore.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
+            ViewData["Size"] = new SelectList(_context.Sizes, "SizeId", "SizeName");
+
             return View();
         }
 
@@ -91,7 +94,7 @@ namespace ShoeStore.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,ProductName,ShortDesciption,Description,CategoryId,Price,Discount,Thumb,ProductImage,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,MetaDesc,MetaKey,UnitsStock")] Product product , Microsoft.AspNetCore.Http.IFormFile fThumb)
+        public async Task<IActionResult> Create([Bind("ProductId,ProductName,ShortDesciption,Description,CategoryId,Price,Discount,Thumb,ProductImage,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,MetaDesc,MetaKey,UnitsStock,SizeId")] Product product , Microsoft.AspNetCore.Http.IFormFile fThumb)
         {
             if (ModelState.IsValid)
             {
@@ -115,6 +118,8 @@ namespace ShoeStore.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", product.CategoryId);
+            ViewData["Size"] = new SelectList(_context.Sizes, "SizeId", "SizeName", product.SizeId);
+
             return View(product);
         }
 
@@ -132,6 +137,7 @@ namespace ShoeStore.Areas.Admin.Controllers
                 return NotFound();
             }
             ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", product.CategoryId);
+            ViewData["Size"] = new SelectList(_context.Sizes, "SizeId", "SizeName", product.SizeId);
             return View(product);
         }
 
@@ -140,7 +146,7 @@ namespace ShoeStore.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,ShortDesciption,Description,CategoryId,Price,Discount,Thumb,ProductImage,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,MetaDesc,MetaKey,UnitsStock")] Product product , Microsoft.AspNetCore.Http.IFormFile fThumb)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,ShortDesciption,Description,CategoryId,Price,Discount,Thumb,ProductImage,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,MetaDesc,MetaKey,UnitsStock,SizeId")] Product product , Microsoft.AspNetCore.Http.IFormFile fThumb)
         {
             if (id != product.ProductId)
             {
@@ -184,6 +190,8 @@ namespace ShoeStore.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["DanhMuc"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", product.CategoryId);
+            ViewData["Size"] = new SelectList(_context.Sizes, "SizeId", "SizeName", product.SizeId);
+
             return View(product);
         }
 

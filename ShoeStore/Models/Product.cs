@@ -30,8 +30,11 @@ namespace ShoeStore.Models
         public string? MetaDesc { get; set; }
         public string? MetaKey { get; set; }
         public int? UnitsStock { get; set; }
+        public int? SizeId { get; set; }
 
         public virtual Category? Category { get; set; }
+        public virtual Size? Size { get; set; }
+
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

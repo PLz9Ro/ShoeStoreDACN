@@ -25,6 +25,7 @@ namespace ShoeStore.Models
         public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<Shipper> Shippers { get; set; } = null!;
+        public virtual DbSet<Size> Sizes { get; set; } = null!;
         public virtual DbSet<TransactionStatus> TransactionStatuses { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
 
@@ -83,6 +84,8 @@ namespace ShoeStore.Models
                 entity.Property(e => e.Email).HasMaxLength(250);
 
                 entity.Property(e => e.FullName).HasMaxLength(250);
+
+                entity.Property(e => e.Gender).HasMaxLength(10);
 
                 entity.Property(e => e.LastLogin).HasColumnType("datetime");
 
@@ -172,6 +175,10 @@ namespace ShoeStore.Models
 
                 entity.Property(e => e.Shipdate).HasColumnType("datetime");
 
+                entity.Property(e => e.Size)
+                    .HasMaxLength(10)
+                    .IsFixedLength();
+
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.OrderDetails)
                     .HasForeignKey(d => d.OrderId)
@@ -226,6 +233,8 @@ namespace ShoeStore.Models
 
                 entity.Property(e => e.ShortDesciption).HasMaxLength(250);
 
+                entity.Property(e => e.SizeId).HasColumnName("SizeID");
+
                 entity.Property(e => e.Tags).HasMaxLength(250);
 
                 entity.Property(e => e.Thumb).HasMaxLength(250);
@@ -262,6 +271,19 @@ namespace ShoeStore.Models
                 entity.Property(e => e.ShipDate).HasColumnType("datetime");
 
                 entity.Property(e => e.ShipperName).HasMaxLength(250);
+            });
+
+            modelBuilder.Entity<Size>(entity =>
+            {
+                entity.ToTable("Size");
+
+                entity.Property(e => e.SizeId).HasColumnName("SizeID");
+
+                entity.Property(e => e.SizeDescription).HasMaxLength(50);
+
+                entity.Property(e => e.SizeName)
+                    .HasMaxLength(10)
+                    .IsFixedLength();
             });
 
             modelBuilder.Entity<TransactionStatus>(entity =>

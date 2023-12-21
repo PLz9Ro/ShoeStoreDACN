@@ -32,8 +32,8 @@ namespace ShoeStore.ModelViews
         [Compare("Password", ErrorMessage = "Vui lòng nhập mật khẩu giống nhau")]
         public string ConfirmPassword { get; set; }
 
-/*        public string LastLogin { get; set; }
-*/
+        public string Gender { get; set; }
+
 
     }
 }

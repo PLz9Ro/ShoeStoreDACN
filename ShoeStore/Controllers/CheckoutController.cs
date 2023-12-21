@@ -61,8 +61,8 @@ namespace ShoeStore.Controllers
                 model.FullName = customer.FullName;
                 model.Email = customer.Email;
                 model.Phone = customer.Phone;
-                model.Address = customer.Address;
 
+                customer.Address = model.Address;
                 customer.City = checkout.City;
                 customer.District = checkout.District;
                 customer.Ward = checkout.Ward;
@@ -89,6 +89,7 @@ namespace ShoeStore.Controllers
                     order.Deleted = false;
                     order.Paid = false;
 
+
                     order.Note = model.Note;
                     order.TotalMoney = Convert.ToInt32(cart.Sum(x => x.TotalMoney));
                     _context.Add(order);
@@ -104,6 +105,7 @@ namespace ShoeStore.Controllers
                         orderDetail.Total = order.TotalMoney;
                         orderDetail.Price = item.product.Price;
                         orderDetail.CreateDate = DateTime.Now;
+                        orderDetail.Size = item.size;
                         _context.Add(orderDetail);
                     }
                     _context.SaveChanges();

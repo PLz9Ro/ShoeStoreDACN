@@ -12,7 +12,7 @@
                 <div class="product-imgs">
                     <div class="img-display">
                         <div class="img-showcase">
-                            <img src="/images/products/@Model.Thumb" alt="@Model.Title" style="width: 100%; height: 100%; object-fit: cover;" />
+                            <img src="/images/products/@Model.Thumb" alt="@Model.Title" id="txtThub" style="width: 100%; height: 100%; object-fit: cover;" />
                         </div>
                     </div>
                 </div>
@@ -38,15 +38,19 @@
                         </p>
                     </div>
                     <div class="product-detail">
+                      
                         <h2>about this Size:</h2>
                         <hr />
                         <ul class="d-flex btn-size">
-                            <li><button class="btn-light">39</button></li>
-                            <li><button class="btn-light">40</button></li>
-                            <li><button class="btn-light">40.5</button></li>
-                            <li><button class="btn-light">41</button></li>
-                            <li><button class="btn-light">41.5</button></li>
-                            <li><button class="btn-light">42</button></li>
+                            <li><button type="number" class="btn-light size-btn" min="0" data-size="37">37</button></li>
+                            <li><button type="number" class="btn-light size-btn" min="0" data-size="38">38</button></li>
+                            <li><button type="number" class="btn-light size-btn" min="0" data-size="39">39</button></li>
+                            <li><button type="number" class="btn-light size-btn" min="0" data-size="40">40</button></li>
+                            <li><button type="number" class="btn-light size-btn" min="0" data-size="41">41</button></li>
+                            <li><button type="number" class="btn-light size-btn" min="0" data-size="42">42</button></li>
+                            <li><button type="number" class="btn-light size-btn" min="0" data-size="43">43</button></li>
+                            <li><button type="number" class="btn-light size-btn" min="0" data-size="44">44</button></li>
+
                         </ul>
                         <hr />
                     </div>
@@ -74,24 +78,35 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
+            var size = ""; // Biến để lưu giữ size đã chọn
+            var thumb = '@Model.Thumb'; // Lấy giá trị Thumb từ Model
+            var title = '@Model.Title';
+            var productName = '@Model.ProductName'; // Lấy giá trị ProductName từ Model
+
+            $(".size-btn").click(function () {
+                size = $(this).data("size");
+            });
             $("#add-to-cart").click(function () {
                 var productID = $('#ProductId').val();
                 var quantity = $('#txtsoLuong').val();
-
                 $.ajax({
                     url: '/api/cart/add',
                     type: 'POST',
                     dataType: 'json',
                     data: {
                         productID: productID,
-                        amount: quantity
+                        amount: quantity,
+                        size : size,
+                        thumb: thumb, // Truyền giá trị Thumb
+                        title: title, // Truyền giá trị Title
+                        productName: productName // Truyền giá trị ProductName
                     },
                     success: function (response) {
                         if (response.success) {
                             _notifyService.Success("Add Product Success");
                             // Gọi hàm cập nhật số lượng sản phẩm trong giỏ hàng ở đây nếu cần
                         } else {
-                            alert('Failed    to add product to cart!');
+                            alert('Failed to add product to cart!');
                         }
                     },
                     error: function (error) {

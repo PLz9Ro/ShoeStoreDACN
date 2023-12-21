@@ -164,6 +164,7 @@ namespace ShoeStore.Controllers
                         Email = account.Email.Trim().ToLower(),
                         Password = (account.Password + salt.Trim()).ToMD5(),
                         ConfirmPassword = account.Password,
+                        Gender = account.Gender,
                         Active = true,
                         Salt = salt,
                         CreateDate = DateTime.Now,

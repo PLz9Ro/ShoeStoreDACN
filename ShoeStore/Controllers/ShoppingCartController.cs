@@ -35,7 +35,7 @@ namespace ShoeStore.Controllers
         }
         [HttpPost]
         [Route("/api/cart/add")]
-        public IActionResult AddToCart (int productID , int? amount)
+        public IActionResult AddToCart (int productID , int? amount , string? size, string thumb, string title, string productName)
         {
             try
             {
@@ -58,7 +58,11 @@ namespace ShoeStore.Controllers
                     item = new CartItem
                     {
                         amount = amount ?? 1,
-                        product = product
+                        product = product,
+                        size = size,
+                        thumb = thumb,
+                        title = title,
+                        productName = productName,
                     };
                     cart.Add(item);
                 }

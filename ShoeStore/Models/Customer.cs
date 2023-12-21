@@ -27,6 +27,7 @@ namespace ShoeStore.Models
         public string? City { get; set; }
         public string? District { get; set; }
         public string? Ward { get; set; }
+        public string? Gender { get; set; }
 
         public virtual Location? Location { get; set; }
         public virtual ICollection<Order> Orders { get; set; }

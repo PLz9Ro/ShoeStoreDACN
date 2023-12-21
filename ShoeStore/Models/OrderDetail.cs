@@ -15,6 +15,7 @@ namespace ShoeStore.Models
         public DateTime? Shipdate { get; set; }
         public DateTime? CreateDate { get; set; }
         public int? Price { get; set; }
+        public string? Size { get; set; }
 
         public virtual Order? Order { get; set; }
         public virtual Product? Product { get; set; }
