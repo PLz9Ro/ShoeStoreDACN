@@ -14,19 +14,24 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 
 // Add services to the container.   
-    builder.Services.AddDbContext<ShoeStoreContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("ShoeStore"))
-    );
+builder.Services.AddDbContext<ShoeStoreContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ShoeStore"))
+);
 
 /*builder.Services.AddSession();
-*/builder.Services.AddSingleton<HtmlEncoder>(HtmlEncoder.Create(allowedRanges:new [] {UnicodeRanges.All }));
+*/
+builder.Services.AddSingleton<HtmlEncoder>(HtmlEncoder.Create(allowedRanges: new[] { UnicodeRanges.All }));
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
         options.LoginPath = "/dang-nhap.html";
-        options.AccessDeniedPath = "/";
+        options.AccessDeniedPath = "/dang-nhap.html";
         options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
     });
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
+});
 builder.Services.AddNotyf(config =>
 {
     config.DurationInSeconds = 10;
@@ -58,10 +63,6 @@ app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
-
-/*app.UseAuthentication();
-app.UseAuthorization();*/
-
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
@@ -74,4 +75,18 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
+app.Use((context, next) =>
+{
+    var user = context.User;
+
+    if (user.Identity.IsAuthenticated)
+    {
+        return next();
+    }
+    else
+    {
+        context.Response.Redirect("/dang-nhap.html");
+        return System.Threading.Tasks.Task.CompletedTask;
+    }
+});
 app.Run();

@@ -29,7 +29,7 @@ namespace ShoeStore.Controllers
             }
         }
         [Route("checkout.html", Name = "Checkout")]
-        public IActionResult Index(string returnUrl = null)
+        public IActionResult Index()
         {
             var cart = HttpContext.Session.Get<List<CartItem>>("Cart");
             var customerid = HttpContext.Session.GetString("CustomerId");

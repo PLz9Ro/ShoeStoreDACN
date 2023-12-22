@@ -5,27 +5,30 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Details</h1>
+<div class="container">
 
-<div>
-    <h4>Size</h4>
+    <h2 class="text-center pt-5">Thông Tin Size</h2>
+
+    <div class="mt-2 mb-2 btn btn-success">
+        <a class="text-white text-decoration-none" asp-action="Index">Back to List</a>
+    </div>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SizeName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SizeName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SizeDescription)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SizeDescription)
-        </dd>
-    </dl>
+
+    <div class="row">
+        <table class="table table-bordered">
+
+            <tbody>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.SizeName)</th>
+                    <td>@Html.DisplayFor(model => model.SizeName)</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.SizeDescription)</th>
+                    <td>@Html.DisplayFor(model => model.SizeDescription)</td>
+                </tr>
+                <!-- Add other properties as needed -->
+            </tbody>
+        </table>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.SizeId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+

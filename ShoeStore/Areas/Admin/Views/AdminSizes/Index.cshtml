@@ -1,42 +1,46 @@
 ﻿@model IEnumerable<ShoeStore.Models.Size>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Size Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Index</h1>
+<div class="container-fluid">
+    <h2 class="text-center pt-3">Size</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.SizeName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SizeDescription)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SizeName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SizeDescription)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.SizeId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.SizeId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.SizeId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="mt-2 mb-1 btn btn-success">
+        <a class="text-white text-decoration-none" asp-action="Create">Create New</a>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.SizeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SizeDescription)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SizeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SizeDescription)
+                    </td>
+                    <td>
+                        <a class="btn btn-info"  asp-action="Edit" asp-route-id="@item.SizeId">Edit</a> |
+                        <a class="btn btn-light"  asp-action="Details" asp-route-id="@item.SizeId">Details</a> |
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.SizeId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>  

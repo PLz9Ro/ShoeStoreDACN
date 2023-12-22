@@ -96,50 +96,79 @@ namespace ShoeStore.Controllers
             [HttpPost]
             [AllowAnonymous]
             [Route("dang-nhap.html", Name = "DangNhap")]
-            public async Task<IActionResult> Login(LoginViewModel customer)
+        public async Task<IActionResult> Login(LoginViewModel customer)
+        {
+            try
             {
-
-                try
+                if (ModelState.IsValid)
                 {
-                    if (ModelState.IsValid)
+                    bool isEmail = Unilities.IsValidEmail(customer.UserName);
+                    if (!isEmail) return View(customer);
+
+                    var userCus = _context.Customers.AsNoTracking().SingleOrDefault(x => x.Email.Trim() == customer.UserName);
+                    var userAdmin = _context.Users.AsNoTracking().SingleOrDefault(x => x.Email.Trim() == customer.UserName && x.RoleId == 3);
+
+                    if (userCus == null && userAdmin == null)
                     {
-                        bool isEmail = Unilities.IsValidEmail(customer.UserName);
-                        if (!isEmail) return View(customer);
+                        return RedirectToAction("Register");
+                    }
 
-                        var userCus = _context.Customers.AsNoTracking().SingleOrDefault(x => x.Email.Trim() == customer.UserName);
-
-                        if (userCus == null) return RedirectToAction("Register");
+                    if (userCus != null)
+                    {
                         string pass = (customer.Password + userCus.Salt.Trim()).ToMD5();
                         if (userCus.Password != pass)
                         {
                             return View(customer);
                         }
+
                         if (userCus.Active == false)
                         {
                             return RedirectToAction("ThongBao", "Accounts");
                         }
-                        //Lưu Session Makh
+
+                        // Lưu Session Makh
                         HttpContext.Session.SetString("CustomerId", userCus.CustomerId.ToString());
                         var userCusId = HttpContext.Session.GetString("CustomerId");
-                        //Identity
+
+                        // Identity cho Customer
                         var claims = new List<Claim>()
-                            {
-                            new Claim(ClaimTypes.NameIdentifier, userCus.FullName), 
-                            new Claim("CustomerId", userCus.CustomerId.ToString())
-                            };
+                {
+                    new Claim(ClaimTypes.NameIdentifier, userCus.FullName),
+                    new Claim("CustomerId", userCus.CustomerId.ToString())
+                };
                         ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "login");
                         ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-                  
-                        await HttpContext.SignInAsync(claimsPrincipal); 
-                    return RedirectToAction("Dashboard", "Account");
+
+                        await HttpContext.SignInAsync(claimsPrincipal);
+
+                        return RedirectToAction("Dashboard", "Account");
+                    }
+                    else if (userAdmin != null)
+                    {
+                        // Identity cho Admin
+                        var adminClaims = new List<Claim>()
+                {
+                    new Claim(ClaimTypes.NameIdentifier, userAdmin.FullName),
+                    new Claim("UserId", userAdmin.Id.ToString()), // Thêm các claims khác nếu cần
+                    new Claim(ClaimTypes.Role, "Admin"), // Đặt quyền admin
+                };
+
+                        ClaimsIdentity adminClaimsIdentity = new ClaimsIdentity(adminClaims, "login");
+                        ClaimsPrincipal adminClaimsPrincipal = new ClaimsPrincipal(adminClaimsIdentity);
+
+                        await HttpContext.SignInAsync(adminClaimsPrincipal);
+
+                        return RedirectToAction("AdminHome", "Admin"); // Đặt đúng đường dẫn cho Dashboard của Admin
                     }
                 }
-                catch (Exception ex)
-            {
-                    return RedirectToAction("Dashboard", "Account");
-                }
-                return View(customer);
             }
+            catch (Exception ex)
+            {
+                // Log exception (Nên log ra hệ thống log hoặc debug)
+                return RedirectToAction("Dashboard", "Account");
+            }
+            return View(customer);
+        }
         [AllowAnonymous]
         [Route("dang-ky.html", Name = "DangKy")]
         public IActionResult Register()
