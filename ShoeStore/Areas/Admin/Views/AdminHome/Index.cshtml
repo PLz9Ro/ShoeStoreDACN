@@ -1,0 +1,131 @@
+﻿@model List<ShoeStore.Models.OrderDetail>
+@{
+    ViewData["Title"] = "Admin Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+        </nav>
+        <!-- End of Topbar -->
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+
+            </div>
+
+            <!-- Content Row -->
+            <div class="row">
+
+                <!-- Earnings (Monthly) Card Example -->
+                <!-- Monthly Total Revenue Card -->
+                <div class="col-xl-6 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Earnings (Monthly)
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.MonthlyTotalRevenue.ToString("C0")</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Yearly Total Revenue Card -->
+                <div class="col-xl-6 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Earnings (Yearly)
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.YearlyTotalRevenue.ToString("C0")</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pending Requests Card Example -->
+
+            </div>
+
+            <!-- Content Row -->
+
+            <div class="row">
+
+                <form method="get" action="@Url.Action("Index", "AdminHome")">
+                    <label for="timeFilter">Chọn thời gian:</label>
+                    <select id="timeFilter" name="timeFilter">
+                        <option value="all">Tất cả</option>
+                        <option value="day">Theo ngày</option>
+                        <option value="month">Theo tháng</option>
+                    </select>
+                    <button type="submit">Lọc</button>
+                </form>
+
+                <!-- Area Chart -->
+                <div class="col-xl-12 col-lg-12">
+                    <div class="chart-area" >
+                        <canvas id="revenueChart" width="400" height="100"></canvas>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+
+
+</div>
+
+@section Scripts {
+    <script>
+        var ctx = document.getElementById('revenueChart').getContext('2d');
+        var products = @Html.Raw(Json.Serialize(Model.Select(od => od.Product?.ProductName).ToList()));
+        var totals = @Html.Raw(Json.Serialize(Model.Select(od => od.Total).ToList()));
+        var dates = @Html.Raw(Json.Serialize(Model.Select(od => od.CreateDate.HasValue ? od.CreateDate.Value.ToString("MM/dd/yyyy") : "Unknown").ToList()));
+
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Doanh thu',
+                    data: totals,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}

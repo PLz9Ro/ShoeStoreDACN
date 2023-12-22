@@ -12,7 +12,9 @@
                     <div class="product-item">
                         <!-- Hiển thị thông tin sản phẩm -->
                         <div class="image-holder">
-                            <img src="~/images/products/@product.Thumb" alt="@product.Title" style=" object-fit: contain;"  class="product-image" />
+                            <a asp-route="ProductDetails" asp-route-id="@product.ProductId" asp-route-alias="@product.Alias">
+                                <img src="~/images/products/@product.Thumb" alt="@product.Title" style=" object-fit: contain;"  class="product-image" />
+                            </a>
                         </div>
                         @* <div class="cart-concern">
                             <!-- Các nút thêm vào giỏ hàng, xem nhanh, wishlist -->
@@ -33,7 +35,7 @@
                         <!-- Chi tiết sản phẩm -->
                         <div class="product-detail">
                             <h3 class="product-title">
-                                <a href="single-product.html">@product.ProductName</a>
+                                <a asp-route="ProductDetails" asp-route-id="@product.ProductId" asp-route-alias="@product.Alias">@product.ProductName</a>
                             </h3>
                             <span class="item-price text-primary">@product.Price</span>
                         </div>

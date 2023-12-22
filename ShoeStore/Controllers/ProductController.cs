@@ -15,17 +15,45 @@ namespace ShoeStore.Controllers
 
         [Route("shop.html", Name = "Product")]
 
-        public IActionResult Index(int? page)
+        public IActionResult Index(int? page , string search , int? categoryId)
         {
             try
             {
                 var pageNumber = page == null || page <= 0 ? 1 : page.Value;
                 var pageSize = 10;
-                var lsBlog = _context.Products
-                .AsNoTracking()
-                .OrderByDescending(x => x.DateCreated);
+                IQueryable<Product> lsBlog = _context.Products.AsNoTracking().OrderByDescending(x => x.DateCreated);
                 PagedList<Product> models = new PagedList<Product>(lsBlog, pageNumber, pageSize);
+                if (!string.IsNullOrEmpty(search))
+                {
+                    var searchValue = search.ToLower(); // Chuyển đổi chuỗi tìm kiếm thành chữ thường
+
+                    var products = _context.Products
+                        .Where(p => p.ProductName.ToLower().Contains(searchValue) || p.Description.ToLower().Contains(searchValue))
+                        .ToPagedList(pageNumber, pageSize);
+
+                    return View(products);
+                }
+                else
+                {
+                    // Truy vấn tất cả sản phẩm nếu không có từ khóa tìm kiếm
+                    var allProducts = _context.Products.ToPagedList(pageNumber, pageSize);
+                }
+                    if (categoryId.HasValue)
+                    {
+                        var products = _context.Products
+                            .Where(p => p.CategoryId == categoryId.Value)
+                            .ToPagedList(pageNumber, pageSize);
+
+                        return View(products);
+                    }
+                    else
+                    {
+                        var allProducts = _context.Products.ToPagedList(pageNumber, pageSize);
+                        return View(allProducts);
+                    }
+                lsBlog = lsBlog.OrderByDescending(x => x.DateCreated);
                 ViewBag.CurrentPage = pageNumber;
+                ViewBag.SearchTerm = search;
                 return View(models);
             }
             catch {

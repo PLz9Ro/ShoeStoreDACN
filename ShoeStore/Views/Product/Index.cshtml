@@ -15,13 +15,10 @@
                 <div class="sidebar">
                     <div class="widgets widget-menu">
                         <div class="widget-search-bar">
-                            <form role="search" method="get" class="d-flex">
-                                <input class="search-field"
-                                       placeholder="Search"
-                                       type="text" />
-                                <button class="btn btn-dark">
-                                    <i class="icon icon-search"></i>
-                                </button>
+                            <form action="/shop.html" method="get" class="search-form">
+                                <input type="text" name="search" placeholder="Search products...">
+                                <button type="submit"><i class="icon icon-search text-dark"></i></button>
+                               
                             </form>
                         </div>
                     </div>
@@ -29,16 +26,19 @@
                         <h5 class="widget-title">Brands</h5>
                         <ul class="product-tags sidebar-list list-unstyled">
                             <li class="tags-item">
-                                <a href="">Nike</a>
+                                <a asp-controller="Product" asp-action="Index" asp-route-categoryId="10">Nike</a>
                             </li>
                             <li class="tags-item">
-                                <a href="">Adidas</a>
+                                <a asp-controller="Product" asp-action="Index" asp-route-categoryId="8" >Adidas</a>
                             </li>
                             <li class="tags-item">
-                                <a href="">Jordan</a>
+                                <a asp-controller="Product" asp-action="Index" asp-route-categoryId="7">Jordan</a>
                             </li>
                             <li class="tags-item">
-                                <a href="">YeeZy</a>
+                                <a asp-controller="Product" asp-action="Index" asp-route-categoryId="11">Yezzy</a>
+                            </li>
+                            <li class="tags-item">
+                                <a asp-controller="Product" asp-action="Index" asp-route-categoryId="9">New Balance</a>
                             </li>
                         </ul>
                     </div>
@@ -96,7 +96,6 @@
                                 {
                                     @foreach (var item in Model)
                                     {
-                                        string url = $"/{@item.Alias}-{@item.ProductId}.html";
                                         <div class="product-item col-lg-3 col-md-6 col-sm-6">
                                             <div class="image-holder " >
                                                 <a asp-route="ProductDetails" asp-route-id="@item.ProductId" asp-route-alias="@item.Alias">
@@ -124,7 +123,7 @@
                                                 </div> *@
                                             <div class="product-detail" asp-action="">
                                                 <h3 class="product-title fs-5 text-truncate">
-                                                    <a href="@url">@item.ProductName</a>
+                                                    <a asp-route="ProductDetails" asp-route-id="@item.ProductId" asp-route-alias="@item.Alias">@item.ProductName</a>
                                                 </h3>
                                                 <div class="item-price text-primary fs-6 mt-3">
                                                     @{
