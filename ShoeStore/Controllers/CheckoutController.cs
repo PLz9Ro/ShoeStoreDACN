@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShoeStore.Extension;
 using ShoeStore.Models;
@@ -11,9 +12,13 @@ namespace ShoeStore.Controllers
     public class CheckoutController : Controller
     {
         private readonly ShoeStoreContext _context;
-        public CheckoutController(ShoeStoreContext context)
+        public INotyfService _notifyService { get; }
+
+        public CheckoutController(ShoeStoreContext context, INotyfService notyfService)
         {
             _context = context;
+            _notifyService = notyfService;
+
         }
         public List<CartItem> Cart
         {
@@ -28,7 +33,7 @@ namespace ShoeStore.Controllers
                 return cart;
             }
         }
-        [Route("checkout.html", Name = "Checkout")]
+        [Route("Checkout.html", Name = "Checkout")]
         public IActionResult Index()
         {
             var cart = HttpContext.Session.Get<List<CartItem>>("Cart");
@@ -112,8 +117,8 @@ namespace ShoeStore.Controllers
                     //clear cart
                     HttpContext.Session.Remove("Cart");
                     // Xuất thông báo
-                    /*                    _notifyService.Success("Đơn hàng đặt thành công");
-                    */                    // Cập nhật thông tin khách hàng
+                    _notifyService.Success("Đơn hàng đặt thành công");
+                    // Cập nhật thông tin khách hàng
                     return RedirectToAction("Success");
                 }
             }
@@ -126,5 +131,9 @@ namespace ShoeStore.Controllers
             return View(model);
         }
 
+        public ActionResult Success()
+        {
+            return View();
+        }
     }
 }

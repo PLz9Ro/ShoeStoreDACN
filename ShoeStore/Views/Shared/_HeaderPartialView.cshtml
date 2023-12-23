@@ -13,13 +13,13 @@
                         <li class="header-icon">
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <a href="/myaccout.html">
+                                <a href="/dashboard.html">
                                     <i class="icon icon-user"></i>
                                 </a>
                             }
                             else
                             {
-                                <a href="/dang-nhap.html">
+                                <a href="/login.html">
                                     <i class="icon icon-user"></i>
                                 </a>
                             }
@@ -28,11 +28,6 @@
                         <li class ="numberCart">
                                 @await Component.InvokeAsync("NumberCart")
 
-                        </li>
-                        <li class="header-icon">
-                            <a href="wishlist.html">
-                                <i class="icon icon-heart"></i>
-                            </a>
                         </li>
                         <li class="user-items search-item">
                             <form action="/shop.html" method="get" class="search-form m-0">

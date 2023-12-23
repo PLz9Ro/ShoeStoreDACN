@@ -103,7 +103,7 @@
                     },
                     success: function (response) {
                         if (response.success) {
-                            _notifyService.Success("Add Product Success");
+                            alert('add product to cart!');
                             // Gọi hàm cập nhật số lượng sản phẩm trong giỏ hàng ở đây nếu cần
                         } else {
                             alert('Failed to add product to cart!');
@@ -116,6 +116,7 @@
             });
         });
     </script>
+
 }
 
               

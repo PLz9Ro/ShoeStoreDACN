@@ -24,8 +24,8 @@ builder.Services.AddSingleton<HtmlEncoder>(HtmlEncoder.Create(allowedRanges: new
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/dang-nhap.html";
-        options.AccessDeniedPath = "/dang-nhap.html";
+        options.LoginPath = "/login.html";
+        options.AccessDeniedPath = "/login.html";
         options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
     });
 builder.Services.AddAuthorization(options =>
@@ -38,6 +38,7 @@ builder.Services.AddNotyf(config =>
     config.IsDismissable = true;
     config.Position = NotyfPosition.TopRight;
 });
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -85,7 +86,7 @@ app.Use((context, next) =>
     }
     else
     {
-        context.Response.Redirect("/dang-nhap.html");
+        context.Response.Redirect("/login.html");
         return System.Threading.Tasks.Task.CompletedTask;
     }
 });

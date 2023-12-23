@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShoeStore.Extension;
 using ShoeStore.Models;
@@ -10,9 +11,12 @@ namespace ShoeStore.Controllers
     public class ShoppingCartController : Controller
     {
         private readonly ShoeStoreContext _context;
-        public ShoppingCartController (ShoeStoreContext context)
+        public INotyfService _notifyService { get; }
+
+        public ShoppingCartController (ShoeStoreContext context, INotyfService notyfService)
         {
             _context = context;
+            _notifyService = notyfService;
         }
         public List<CartItem> Cart
         {
@@ -65,6 +69,8 @@ namespace ShoeStore.Controllers
                         productName = productName,
                     };
                     cart.Add(item);
+                    _notifyService.Success("Đơn hàng đặt thành công");
+
                 }
                 HttpContext.Session.Set<List<CartItem>>("Cart", cart);
                 return Json(new { success = true });
@@ -74,7 +80,7 @@ namespace ShoeStore.Controllers
             {
                 return Json(new { success = false });
             }
-             
+
         }
 
         [HttpPost]

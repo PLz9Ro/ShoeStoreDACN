@@ -82,7 +82,7 @@ namespace ShoeStore.Controllers
         }
             [HttpGet]
             [AllowAnonymous]
-            [Route("dang-nhap.html", Name = "DangNhap")]
+            [Route("login.html", Name = "DangNhap")]
             /*[Route("dang-nhap.html", Name = "DangNhap")]*/
             public ActionResult Login()
             {
@@ -95,7 +95,7 @@ namespace ShoeStore.Controllers
             }
             [HttpPost]
             [AllowAnonymous]
-            [Route("dang-nhap.html", Name = "DangNhap")]
+            [Route("login.html", Name = "DangNhap")]
         public async Task<IActionResult> Login(LoginViewModel customer)
         {
             try
