@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,10 +17,13 @@ namespace ShoeStore.Areas.Admin.Controllers
     public class AdminCustomersController : Controller
     {
         private readonly ShoeStoreContext _context;
+        public INotyfService _notifyService { get; }
 
-        public AdminCustomersController(ShoeStoreContext context)
+
+        public AdminCustomersController(ShoeStoreContext context, INotyfService notyfService)
         {
             _context = context;
+            _notifyService = notyfService;
         }
 
         // GET: Admin/AdminCustomers
@@ -73,6 +77,8 @@ namespace ShoeStore.Areas.Admin.Controllers
             {
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
+                _notifyService.Success("Create Success");
+
                 return RedirectToAction(nameof(Index));
             }
             return View(customer);
@@ -112,6 +118,8 @@ namespace ShoeStore.Areas.Admin.Controllers
                 {
                     _context.Update(customer);
                     await _context.SaveChangesAsync();
+                    _notifyService.Success("Edit Success");
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -163,6 +171,8 @@ namespace ShoeStore.Areas.Admin.Controllers
             }
             
             await _context.SaveChangesAsync();
+            _notifyService.Error("Delete Success");
+
             return RedirectToAction(nameof(Index));
         }
 

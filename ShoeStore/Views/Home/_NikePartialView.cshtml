@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ShoeStore.Models.Product>
+
+
+<div class="swiper product-swiper flash-sales overflow-hidden">
+    <div class="swiper-wrapper">
+          @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                @if(item.CategoryId == 10)
+                {
+                    <div class="swiper-slide">
+                        <div class="product-item">
+                            <img src="~/images/products/@item.Thumb "
+                                 alt="@item.Title"
+                                 class="product-image" />
+                            <div class="cart-concern">
+                                <div class="cart-button d-flex justify-content-between align-items-center">
+                                    <button type="button"
+                                            class="btn-wrap cart-link d-flex align-items-center">
+                                        add to cart <i class="icon icon-arrow-io"></i>
+                                    </button>
+                                    <button type="button" class="view-btn tooltip d-flex">
+                                        <i class="icon icon-screen-full"></i>
+                                        <span class="tooltip-text">Quick view</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-detail">
+                                <h3 class="product-title">
+                                    <a href="single-product.html">@item.ProductName</a>
+                                </h3>
+                                <div class="item-price text-primary">
+                                    @item.Price
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            }
+
+        }
+
+
+    </div>
+    <div class="swiper-pagination"></div>
+</div>

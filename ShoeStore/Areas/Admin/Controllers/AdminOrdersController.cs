@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,10 +17,13 @@ namespace ShoeStore.Areas.Admin.Controllers
     public class AdminOrdersController : Controller
     {
         private readonly ShoeStoreContext _context;
+        public INotyfService _notifyService { get; }
 
-        public AdminOrdersController(ShoeStoreContext context)
+
+        public AdminOrdersController(ShoeStoreContext context, INotyfService notyfService)
         {
             _context = context;
+            _notifyService = notyfService;
         }
 
         // GET: Admin/AdminOrders
@@ -106,6 +110,7 @@ namespace ShoeStore.Areas.Admin.Controllers
                         if(donhang.TransactStatusId == 3)donhang.ShipDate= DateTime.Now;
                     }
                     _context.Update(donhang);
+                    _notifyService.Success("Edit Success");
                     await _context.SaveChangesAsync();
                     /*                    _notifyService.Success("Cập nhật trạng thái đơn hàng thành công");
                     */
