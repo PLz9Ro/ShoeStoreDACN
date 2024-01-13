@@ -97,9 +97,7 @@ namespace ShoeStore.Models
                     .HasMaxLength(12)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Salt)
-                    .HasMaxLength(10)
-                    .IsFixedLength();
+                entity.Property(e => e.Salt).HasMaxLength(50);
 
                 entity.Property(e => e.Ward).HasMaxLength(50);
 
@@ -153,7 +151,8 @@ namespace ShoeStore.Models
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.CustomerId)
-                    .HasConstraintName("FK_Order_Customer");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Order_Customer1");
 
                 entity.HasOne(d => d.TransactStatus)
                     .WithMany(p => p.Orders)
@@ -245,6 +244,11 @@ namespace ShoeStore.Models
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CategoryId)
                     .HasConstraintName("FK_Product_Category");
+
+                entity.HasOne(d => d.Size)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.SizeId)
+                    .HasConstraintName("FK_Product_Size");
             });
 
             modelBuilder.Entity<Role>(entity =>

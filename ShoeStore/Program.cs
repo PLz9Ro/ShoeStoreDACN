@@ -80,7 +80,7 @@ app.Use((context, next) =>
 {
     var user = context.User;
 
-    if (user.Identity.IsAuthenticated)
+    if (user.Identity.IsAuthenticated || context.Request.Path == "/login.html")
     {
         return next();
     }

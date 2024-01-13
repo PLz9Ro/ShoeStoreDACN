@@ -11,7 +11,7 @@ namespace ShoeStore.Models
         }
 
         public int OrderId { get; set; }
-        public int? CustomerId { get; set; }
+        public int CustomerId { get; set; }
         public DateTime? OrderDate { get; set; }
         public DateTime? ShipDate { get; set; }
         public int? TransactStatusId { get; set; }
@@ -26,7 +26,7 @@ namespace ShoeStore.Models
         public string? District { get; set; }
         public string? Ward { get; set; }
 
-        public virtual Customer? Customer { get; set; }
+        public virtual Customer Customer { get; set; } = null!;
         public virtual TransactionStatus? TransactStatus { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }

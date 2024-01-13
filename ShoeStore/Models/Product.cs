@@ -34,7 +34,6 @@ namespace ShoeStore.Models
 
         public virtual Category? Category { get; set; }
         public virtual Size? Size { get; set; }
-
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

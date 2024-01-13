@@ -115,7 +115,7 @@ namespace ShoeStore.Controllers
 
                     if (userCus != null)
                     {
-                        string pass = (customer.Password + userCus.Salt.Trim()).ToMD5();
+                        string pass = (customer.Password.Trim() + customer.UserName);
                         if (userCus.Password != pass)
                         {
                             return View(customer);
@@ -184,15 +184,15 @@ namespace ShoeStore.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    string salt = Unilities.GetRandomKey();
+                    string salt = account.Email;
                     Customer userCus = new Customer()
                     {
 
                         FullName = account.FullName,
                         Phone = account.Phone.Trim().ToLower(),
                         Email = account.Email.Trim().ToLower(),
-                        Password = (account.Password + salt.Trim()).ToMD5(),
-                        ConfirmPassword = account.Password,
+                        Password = (account.Password + salt.Trim()),
+                        ConfirmPassword = (account.Password + salt.Trim()),
                         Gender = account.Gender,
                         Active = true,
                         Salt = salt,
@@ -236,11 +236,59 @@ namespace ShoeStore.Controllers
 
         [HttpGet]
         [Route("logout", Name = "Logout")]
-        public ActionResult Logout()
+        public async Task<IActionResult>  Logout()
         {
-            HttpContext.SignOutAsync();
-            HttpContext.Session.Remove("CustomerId");
-            return RedirectToAction("Index", "Home");
+            await HttpContext.SignOutAsync();
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
+        }
+        [HttpGet]
+        [Authorize] // Add this attribute to ensure only authenticated users can access this action
+        [Route("change-password.html", Name = "ChangePassword")]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("change-password.html", Name = "ChangePassword")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var customerId = HttpContext.Session.GetString("CustomerId");
+                    var customer = await _context.Customers.FindAsync(int.Parse(customerId));
+
+                    if (customer != null)
+                    {
+                        // Verify the current password
+                        var currentPasswordHash = (model.CurrentPassword + customer.Email);
+                        if (currentPasswordHash != customer.Password)
+                        {
+                            ModelState.AddModelError("CurrentPassword", "Incorrect current password");
+                            return View(model);
+                        }
+
+                        // Change the password
+                        customer.Password = (model.NewPassword + customer.Email);
+                        _context.SaveChanges();
+
+                        // You might also want to update the authentication cookie
+                        await HttpContext.SignOutAsync();
+                        return RedirectToAction("Login", "Account");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception (Nên log ra hệ thống log hoặc debug)
+                return RedirectToAction("Dashboard", "Account");
+            }
+
+            return View(model);
         }
     }
 }
