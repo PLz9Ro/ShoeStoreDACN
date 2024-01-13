@@ -239,7 +239,7 @@ namespace ShoeStore.Controllers
         public async Task<IActionResult>  Logout()
         {
             await HttpContext.SignOutAsync();
-            HttpContext.Session.Clear();
+            HttpContext.Session.Clear(); 
             return RedirectToAction("Login");
         }
         [HttpGet]
